@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
-  "homepage": "https://ronnelb.github.io/portfolio",
+  "homepage": "https://ronnelb-dev.github.io/portfolio",
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.0.17",

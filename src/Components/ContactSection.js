@@ -1,5 +1,5 @@
 import React from 'react';
-import Fade from 'react-reveal/Fade';
+import { Slide } from "react-awesome-reveal";
 
 class ContactSection extends React.Component {
   render() {
@@ -9,11 +9,11 @@ class ContactSection extends React.Component {
                 <div class="flex justify-center">
                     <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-3xl lg:text-4xl text-transparent bg-clip-text bg-gradient-to-r to-emerald-400 from-cyan-400 underline underline-offset-8 decoration-cyan-400 ">Contact Me</h1>
                 </div>
-                <Fade clear big cascade>
+                <Slide direction="up" triggerOnce>
                 <div>
 
                 <div class="flex justify-center max-w-lg mx-auto">
-                    <p class="mb-3 text-center text-base text-gray-500 dark:text-gray-300 mt-4">I'm currently looking for any new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+                    <p class="mb-3 text-center text-base text-gray-500 dark:text-gray-300 mt-4">Feel free to reach out to me through the Button below if you have any inquiries or if you'd like to discuss potential projects. I am always excited to take on new challenges and contribute my expertise to help your business thrive online.</p>
                 </div>
 
                         <div class="flex justify-center mt-10">
@@ -24,7 +24,7 @@ class ContactSection extends React.Component {
                             </a>
                         </div>
                     </div>
-                </Fade>
+                </Slide>
             </div>
         </section>
     );

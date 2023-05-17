@@ -11,7 +11,7 @@ import TEFeatureImg from '../Images/te-feature.png';
 import PEMFeatureImg from '../Images/pem-feature.png';
 import TSFeatureImg from '../Images/ts-feature.png';
 import PFFeatureImg from '../Images/pf-feature.png';
-import Fade from 'react-reveal/Fade';
+import { Slide } from "react-awesome-reveal";
 
 const projectData = [
     {
@@ -162,21 +162,22 @@ class PortfolioSection extends React.Component {
     const { projects } = this.state;
     return (
         <section id="portfolio" class="mb-5">
-            <Fade clear>
-                <div>
+           
                     <div class="flex justify-center">
                         <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-3xl lg:text-4xl text-transparent bg-clip-text bg-gradient-to-r to-emerald-400 from-cyan-400 underline underline-offset-8 decoration-cyan-400 ">Portfolio</h1>
                     </div>
+                    <Slide triggerOnce>
+                <div>
                     <div class="flex flex-wrap justify-center">
                         <button onClick={() => this.PortfolioBtnClick("All")} type="button" class={this.state.selectedPortfolio==="All" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>All</button>
                         <button onClick={() => this.PortfolioBtnClick("react")} type="button" class={this.state.selectedPortfolio==="react" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React</button>
                         <button onClick={() => this.PortfolioBtnClick("react-native")} type="button" class={this.state.selectedPortfolio==="react-native" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React-Native</button>
                         <button onClick={() => this.PortfolioBtnClick("wordpress")} type="button" class={this.state.selectedPortfolio==="wordpress" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Wordpress</button>
                     </div>
-                    <div class="grid lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-2 sm:grid-cols-1 sm:gap-1 m-5">
+                    <div class="grid lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-2 sm:grid-cols-1 sm:gap-1">
                         {
                         projects.map((project) => ( 
-                            <div key={project.length} class="flex justify-center">
+                            <div key={project.length} class="flex justify-center m-5">
                                 <div class="max-w-lg bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700">
                                     <a class="flex justify-center" href={project.link} target="_blank">
                                         <img class="w-70 h-80" src={project.project_image} alt="" />
@@ -197,7 +198,7 @@ class PortfolioSection extends React.Component {
                         }
                     </div>
                 </div>
-            </Fade>
+            </Slide>
         </section>
     );
   }

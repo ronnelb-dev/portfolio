@@ -10,7 +10,7 @@ class ContactSection extends React.Component {
                 <div class="flex justify-center">
                     <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-3xl lg:text-4xl text-transparent bg-clip-text bg-gradient-to-r to-emerald-400 from-cyan-400 underline underline-offset-8 decoration-cyan-400 ">Contact Me</h1>
                 </div>
-                <Slide direction="up" triggerOnce>
+                <Slide direction="right" triggerOnce>
                 <div>
 
                 <div class="flex justify-center max-w-lg mx-auto">
@@ -26,7 +26,7 @@ class ContactSection extends React.Component {
                         </div>
 
                         <div class="flex justify-center mt-10">
-                        <a href={myResume} download="RonnelResume.pdf" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                        <a href={myResume} class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
                         <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                             My Resume
                         </span>

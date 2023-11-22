@@ -12,9 +12,17 @@ import PEMFeatureImg from '../Images/pem-feature.png';
 import TSFeatureImg from '../Images/ts-feature.png';
 import PFFeatureImg from '../Images/pf-feature.png';
 import BFFeatureImg from '../Images/bf-feature.png';
+import SSTeatureImg from '../Images/sst-feature.png';
 import { Slide } from "react-awesome-reveal";
 
 const projectData = [
+    {
+        "project_name": "SST ePOS Electronic Cash",
+        "project_description": 'The SST app will act like a cash register for small retail neighborhood or convenience stores (Sari Sari) by using a smart phone or tablet. You will be able to handle products with or without Bar codes.  Products with Bar codes can be quickly scanned using your phone. After scanning the app show a running total of each item and the price. ',
+        "project_image": SSTeatureImg,
+        "tag": "react-native",
+        "link": "https://webcoastapps.com/sst-introduction/",
+    },
     {
         "project_name": "My Portfolio",
         "project_description": 'A collection of work that showcases my skills and projects as a mobile and web developer. These include all of my best work, along with the descriptions of each project. I build this website using React and TailwindCSS.',

@@ -93,7 +93,7 @@ const projectData = [
     // },
     {
         "project_name": "Web Coast Apps",
-        "project_description": "Web Coast Apps is a company dedicated to the design and development of mobile applications with a specific emphasis on creating Tracking, reporting, and notification apps for personal and individual business use. Our primary objective is to enhance people's lives through the convenience and power of mobile devices.",
+        "project_description": "Web Coast Apps is a website built on the WordPress. The site showcase various of mobile tracking applications that improves lives through tracking, reporting, and notification” Apps for personal and individual business use.",
         "project_image": WCAFeatureImg,
         "tag": "wordpress",
         "link": "https://webcoastapps.com/",
@@ -114,7 +114,7 @@ const projectData = [
     },
     {
         "project_name": "Tipsee",
-        "project_description": "TipSee is an all-inclusive tip-tracking app for anyone who gets tips daily or enough times throughout the year that you would like to keep a record.  The app is user-friendly and easy to learn.",
+        "project_description": "TipSee is an all-inclusive tip-tracking app for anyone who gets tips daily or enough times throughout the year that you would like to keep a record.",
         "project_image": TSFeatureImg,
         "tag": "android-studio",
         "link": "https://webcoastapps.com/tipsee-tip-tracker/",

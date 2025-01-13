@@ -13,9 +13,33 @@ import TSFeatureImg from '../Images/ts-feature.png';
 import PFFeatureImg from '../Images/pf-feature.png';
 import BFFeatureImg from '../Images/bf-feature.png';
 import SSTeatureImg from '../Images/sst-feature.png';
+import SOLFeatureImg from '../Images/sol-feature.png';
+import MEALFeatureImg from '../Images/meal-feature.png';
+import QMSFeatureImg from '../Images/qms-feature.png';
 import { Slide } from "react-awesome-reveal";
 
 const projectData = [
+    {
+        "project_name": "Queue Management System",
+        "project_description": 'The Queue Management System (QMS) Web Application is a robust and user-friendly platform designed to streamline and optimize queue operations for organizations of all sizes. Built with flexibility and efficiency in mind, this application empowers administrators and queue managers to effectively manage transactions, users, and reporting needs, all from a centralized interface.',
+        "project_image": QMSFeatureImg,
+        "tag": "web",
+        "link": "",
+    },
+    {
+        "project_name": "Meal Monitoring System",
+        "project_description": 'streamlined solution designed to efficiently manage and track meal claims for employees. This web application leverages the power of Laravel for a user-friendly front-end experience and Express.js for a robust and scalable back-end infrastructure.',
+        "project_image": MEALFeatureImg,
+        "tag": "web",
+        "link": "",
+    },
+    {
+        "project_name": "The Medical City South Luzon SOL APP",
+        "project_description": 'The TMCSL Mobile App is designed to streamline the healthcare process by allowing patients and healthcare professionals to manage appointments, view laboratory results, and handle billing transactions efficiently. With a focus on security and user experience, the app ensures that sensitive information is protected and accessible only by authorized users.',
+        "project_image": SOLFeatureImg,
+        "tag": "flutter",
+        "link": "",
+    },
     {
         "project_name": "SST ePOS Electronic Cash",
         "project_description": 'The SST app will act like a cash register for small retail neighborhood or convenience stores (Sari Sari) by using a smart phone or tablet. You will be able to handle products with or without Bar codes.  Products with Bar codes can be quickly scanned using your phone. After scanning the app show a running total of each item and the price. ',
@@ -132,13 +156,13 @@ const projectData = [
     //     "project_image": bgggg,
     //     "tag": "unity",
     // },
-    
+
 ]
 
 class PortfolioSection extends React.Component {
     constructor(props) {
         super(props);
-   
+
         this.state = {
             projects: [],
             selectedPortfolio: "All",
@@ -148,77 +172,78 @@ class PortfolioSection extends React.Component {
     }
 
     componentDidMount() {
-        
+
         this.setState({
             projects: projectData,
         });
-        
+
     }
 
     PortfolioBtnClick(techStack) {
-        if(techStack == "All"){
+        if (techStack == "All") {
             this.setState({
                 projects: projectData,
                 selectedPortfolio: "All",
             });
-        }else{
+        } else {
             var result = projectData.filter(obj => {
                 return obj.tag === techStack;
-            }) 
+            })
             console.log(result);
             this.setState({
                 projects: result,
                 selectedPortfolio: techStack,
             });
         }
-        
+
     }
 
-  render() {
-    const { projects } = this.state;
-    return (
-        <section id="portfolio" class="mb-5">
-           
-                    <div class="flex justify-center">
-                        <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-3xl lg:text-4xl text-transparent bg-clip-text bg-gradient-to-r to-emerald-400 from-cyan-400 underline underline-offset-8 decoration-cyan-400 ">Portfolio</h1>
-                    </div>
-                    <Slide triggerOnce>
-                <div>
-                    <div class="flex flex-wrap justify-center">
-                        <button onClick={() => this.PortfolioBtnClick("All")} type="button" class={this.state.selectedPortfolio==="All" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>All</button>
-                        <button onClick={() => this.PortfolioBtnClick("react")} type="button" class={this.state.selectedPortfolio==="react" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React</button>
-                        <button onClick={() => this.PortfolioBtnClick("android-studio")} type="button" class={this.state.selectedPortfolio==="android-studio" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Android Studio</button>
-                        <button onClick={() => this.PortfolioBtnClick("react-native")} type="button" class={this.state.selectedPortfolio==="react-native" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React-Native</button>
-                        <button onClick={() => this.PortfolioBtnClick("wordpress")} type="button" class={this.state.selectedPortfolio==="wordpress" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Wordpress</button>
-                    </div>
-                    <div class="grid lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-2 sm:grid-cols-1 sm:gap-1">
-                        {
-                        projects.map((project) => ( 
-                            <div key={project.length} class="flex justify-center m-5">
-                                <div class="max-w-lg bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700">
-                                    <a class="flex justify-center" href={project.link} target="_blank">
-                                        <img class="w-70 h-80 mt-5" src={project.project_image} alt="" />
-                                    </a>
-                                    <div class="p-5">
-                                        <a href="#">
-                                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.project_name}</h5>
-                                        </a>
-                                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.project_description}</p>
-                                        <a href={project.link} target="_blank" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-cyan-400 rounded-lg hover:bg-cyan-500 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:bg-cyan-400 dark:hover:bg-cyan-500 dark:focus:ring-cyan-800">
-                                            Learn more
-                                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            ))
-                        }
-                    </div>
+    render() {
+        const { projects } = this.state;
+        return (
+            <section id="portfolio" class="mb-5">
+
+                <div class="flex justify-center">
+                    <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-3xl lg:text-4xl text-transparent bg-clip-text bg-gradient-to-r to-emerald-400 from-cyan-400 underline underline-offset-8 decoration-cyan-400 ">Portfolio</h1>
                 </div>
-            </Slide>
-        </section>
-    );
-  }
+                <Slide triggerOnce>
+                    <div>
+                        <div class="flex flex-wrap justify-center">
+                            <button onClick={() => this.PortfolioBtnClick("All")} type="button" class={this.state.selectedPortfolio === "All" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>All</button>
+                            <button onClick={() => this.PortfolioBtnClick("react")} type="button" class={this.state.selectedPortfolio === "react" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React</button>
+                            <button onClick={() => this.PortfolioBtnClick("flutter")} type="button" class={this.state.selectedPortfolio === "flutter" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Flutter</button>
+                            <button onClick={() => this.PortfolioBtnClick("android-studio")} type="button" class={this.state.selectedPortfolio === "android-studio" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Android Studio</button>
+                            <button onClick={() => this.PortfolioBtnClick("react-native")} type="button" class={this.state.selectedPortfolio === "react-native" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React-Native</button>
+                            <button onClick={() => this.PortfolioBtnClick("wordpress")} type="button" class={this.state.selectedPortfolio === "wordpress" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Wordpress</button>
+                        </div>
+                        <div class="grid lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-2 sm:grid-cols-1 sm:gap-1">
+                            {
+                                projects.map((project) => (
+                                    <div key={project.length} class="flex justify-center m-5">
+                                        <div class="max-w-lg bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700">
+                                            <a class="flex justify-center" href={project.link} target="_blank">
+                                                <img class="w-70 h-60 m-5" src={project.project_image} alt="" />
+                                            </a>
+                                            <div class="p-5">
+                                                <a href="#">
+                                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{project.project_name}</h5>
+                                                </a>
+                                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{project.project_description}</p>
+                                                <a href={project.link} target="_blank" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-cyan-400 rounded-lg hover:bg-cyan-500 focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:bg-cyan-400 dark:hover:bg-cyan-500 dark:focus:ring-cyan-800">
+                                                    Learn more
+                                                    <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </Slide>
+            </section>
+        );
+    }
 }
 
 export default PortfolioSection;

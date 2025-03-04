@@ -112,6 +112,13 @@ class AboutMeSection extends React.Component {
                                     </svg>
                                     Flutter
                                 </span>
+
+                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
+                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="#FF2D20">
+                                        <path d="M6.63 3.26a.5.5 0 0 0-.41 0L.54 5.91a.5.5 0 0 0-.29.45v11.16c0 .19.11.37.29.45l5.68 2.65a.5.5 0 0 0 .41 0l5.68-2.65a.5.5 0 0 0 .29-.45V6.36a.5.5 0 0 0-.29-.45L6.63 3.26zm-.2 1.02 5.06 2.36v10.43l-5.06 2.36-5.06-2.36V6.64l5.06-2.36zM17.37 8.16a.5.5 0 0 0-.41 0l-5.68 2.65a.5.5 0 0 0-.29.45v5.91c0 .19.11.37.29.45l5.68 2.65a.5.5 0 0 0 .41 0l5.68-2.65a.5.5 0 0 0 .29-.45v-5.91a.5.5 0 0 0-.29-.45l-5.68-2.65zm-.2 1.02 5.06 2.36v5.34l-5.06 2.36-5.06-2.36v-5.34l5.06-2.36zM11.5 11.12a.5.5 0 0 0-.41 0L5.41 13.77a.5.5 0 0 0-.29.45v5.91c0 .19.11.37.29.45l5.68 2.65a.5.5 0 0 0 .41 0l5.68-2.65a.5.5 0 0 0 .29-.45v-5.91a.5.5 0 0 0-.29-.45l-5.68-2.65zm-.2 1.02 5.06 2.36v5.34l-5.06 2.36-5.06-2.36v-5.34l5.06-2.36z" />
+                                    </svg>
+                                    Laravel
+                                </span>
                             </div>
                         </Slide>
                     </div>

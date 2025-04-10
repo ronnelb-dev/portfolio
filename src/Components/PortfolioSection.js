@@ -12,38 +12,54 @@ import PEMFeatureImg from '../Images/pem-feature.png';
 import TSFeatureImg from '../Images/ts-feature.png';
 import PFFeatureImg from '../Images/pf-feature.png';
 import BFFeatureImg from '../Images/bf-feature.png';
-import SSTeatureImg from '../Images/sst-feature.png';
+import SSTFeatureImg from '../Images/sst-feature.png';
+import SSCFeatureImg from '../Images/ssc-feature.png';
 import SOLFeatureImg from '../Images/sol-feature.png';
 import MEALFeatureImg from '../Images/meal-feature.png';
 import QMSFeatureImg from '../Images/qms-feature.png';
+import BSTFeatureImg from '../Images/bst-feature.png';
 import { Slide } from "react-awesome-reveal";
 
 const projectData = [
+    {
+        "project_name": "Better Swing Trader (BST)",
+        "project_description": 'BST tracks stocks daily for gain and loss(by amount and %). BST allows you to easily see if you are meeting your goals, and try out new approaches to find a winning strategy and develop positive habits.',
+        "project_image": BSTFeatureImg,
+        "tag": "react-native",
+        "link": "https://apps.apple.com/us/app/best-swing-trader/id6737796315",
+    },
     {
         "project_name": "Queue Management System",
         "project_description": 'The Queue Management System (QMS) Web Application is a robust and user-friendly platform designed to streamline and optimize queue operations for organizations of all sizes. Built with flexibility and efficiency in mind, this application empowers administrators and queue managers to effectively manage transactions, users, and reporting needs, all from a centralized interface.',
         "project_image": QMSFeatureImg,
         "tag": "web",
-        "link": "",
+        "link": "#",
     },
     {
         "project_name": "Meal Monitoring System",
         "project_description": 'streamlined solution designed to efficiently manage and track meal claims for employees. This web application leverages the power of Laravel for a user-friendly front-end experience and Express.js for a robust and scalable back-end infrastructure.',
         "project_image": MEALFeatureImg,
         "tag": "web",
-        "link": "",
+        "link": "#",
     },
     {
         "project_name": "The Medical City South Luzon SOL APP",
         "project_description": 'The TMCSL Mobile App is designed to streamline the healthcare process by allowing patients and healthcare professionals to manage appointments, view laboratory results, and handle billing transactions efficiently. With a focus on security and user experience, the app ensures that sensitive information is protected and accessible only by authorized users.',
         "project_image": SOLFeatureImg,
         "tag": "flutter",
-        "link": "",
+        "link": "#",
     },
     {
-        "project_name": "SST ePOS Electronic Cash",
+        "project_name": "Sari Sari Customer (SSC)",
+        "project_description": 'SSC - For Online SST Customers can now easily access your stores products online, from the comfort of their home. They can send there orders directly to you through SST, which can be prepared ahead of time.',
+        "project_image": SSCFeatureImg,
+        "tag": "react-native",
+        "link": "https://webcoastapps.com/ssc-introduction/",
+    },
+    {
+        "project_name": "Sari Sari Tracker (SST)",
         "project_description": 'The SST app will act like a cash register for small retail neighborhood or convenience stores (Sari Sari) by using a smart phone or tablet. You will be able to handle products with or without Bar codes.  Products with Bar codes can be quickly scanned using your phone. After scanning the app show a running total of each item and the price. ',
-        "project_image": SSTeatureImg,
+        "project_image": SSTFeatureImg,
         "tag": "react-native",
         "link": "https://webcoastapps.com/sst-introduction/",
     },

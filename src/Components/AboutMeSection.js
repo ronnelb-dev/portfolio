@@ -14,7 +14,7 @@ class AboutMeSection extends React.Component {
                         <Slide direction="left" triggerOnce>
                             <div>
                                 <h5 class="text-xl font-bold text-cyan-400 dark:text-cyan-400">Hello!</h5>
-                                <p class="mb-3 text-left text-gray-500 dark:text-gray-300 mt-4">As a Full Stack Developer, I'm passionate about harnessing technology to create innovative solutions. With a strong foundation in HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, React, React-Native, and Flutter, I've honed my skills in both front-end and back-end development. I'm excited to continue learning and growing in my current role, staying up-to-date with the latest trends and technologies, and applying them to create innovative solutions.</p>
+                                <p class="mb-3 text-left text-gray-500 dark:text-gray-300 mt-4">I'm passionate about harnessing technology to create innovative solutions. With a strong foundation in HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, React, React-Native, and Flutter, I've honed my skills in both front-end and back-end development. I'm excited to continue learning and growing in my current role, staying up-to-date with the latest trends and technologies, and applying them to create innovative solutions.</p>
                                 <p class="mb-3 text-left text-gray-500 dark:text-gray-300">I would love to hear from you. Whether it's a project, job opportunity, or just a chat. Feel free to contact me.</p>
                             </div>
                         </Slide>

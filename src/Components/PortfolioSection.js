@@ -18,9 +18,25 @@ import SOLFeatureImg from '../Images/sol-feature.png';
 import MEALFeatureImg from '../Images/meal-feature.png';
 import QMSFeatureImg from '../Images/qms-feature.png';
 import BSTFeatureImg from '../Images/bst-feature.png';
+import WEDFeatureImg from '../Images/wed-feature.PNG';
+import BSTWEBFeatureImg from '../Images/bst-web-feature.PNG';
 import { Slide } from "react-awesome-reveal";
 
 const projectData = [
+    {
+        "project_name": "Better Swing Trader Web",
+        "project_description": 'Better Swing Trader is built exclusively for swing traders who demand precision. Track every trade, analyze your swing trading strategies, and maximize returns with data-driven insights that day traders and long-term investors miss.',
+        "project_image": BSTWEBFeatureImg,
+        "tag": "web",
+        "link": "https://betterswingtrader.com/landing-page/",
+    },
+    {
+        "project_name": "My Wedding Website",
+        "project_description": 'Everything about our wedding day — from our love story and wedding details to the venue, countdown, and beautiful photo galleries. Guest can also share their own memories through the guest photo upload section. We celebrated love, laughter, and the beginning of our forever.',
+        "project_image": WEDFeatureImg,
+        "tag": "web",
+        "link": "https://ronneljunnawedding.com/",
+    },
     {
         "project_name": "Better Swing Trader (BST)",
         "project_description": 'BST tracks stocks daily for gain and loss(by amount and %). BST allows you to easily see if you are meeting your goals, and try out new approaches to find a winning strategy and develop positive habits.',
@@ -30,14 +46,14 @@ const projectData = [
     },
     {
         "project_name": "Queue Management System",
-        "project_description": 'The Queue Management System (QMS) Web Application is a robust and user-friendly platform designed to streamline and optimize queue operations for organizations of all sizes. Built with flexibility and efficiency in mind, this application empowers administrators and queue managers to effectively manage transactions, users, and reporting needs, all from a centralized interface.',
+        "project_description": 'The Queue Management System (QMS) Web Application is a robust and user-friendly platform designed to optimize queue operations for organizations. Built with flexibility and efficiency in mind, this application empowers administrators and queue managers to effectively manage transactions, users, and reporting needs, all from a centralized interface.',
         "project_image": QMSFeatureImg,
         "tag": "web",
         "link": "#",
     },
     {
         "project_name": "Meal Monitoring System",
-        "project_description": 'streamlined solution designed to efficiently manage and track meal claims for employees. This web application leverages the power of Laravel for a user-friendly front-end experience and Express.js for a robust and scalable back-end infrastructure.',
+        "project_description": 'Designed to easily claim meals using bar code scanner  to efficiently manage and track meal of employees, with reports and filter to easily extract data in excel file and account manage.', // 
         "project_image": MEALFeatureImg,
         "tag": "web",
         "link": "#",
@@ -67,7 +83,7 @@ const projectData = [
         "project_name": "My Portfolio",
         "project_description": 'A collection of work that showcases my skills and projects as a mobile and web developer. These include all of my best work, along with the descriptions of each project. I build this website using React and TailwindCSS.',
         "project_image": PFFeatureImg,
-        "tag": "react",
+        "tag": "web",
         "link": "#",
     },
     {
@@ -133,9 +149,9 @@ const projectData = [
     // },
     {
         "project_name": "Web Coast Apps",
-        "project_description": "Web Coast Apps is a website built on the WordPress. The site showcase various of mobile tracking applications that improves lives through tracking, reporting, and notification” Apps for personal and individual business use.",
+        "project_description": "Web Coast Apps is a website that showcase various of mobile tracking applications that improves lives through tracking, reporting, and notification” Apps for personal and individual business use.",
         "project_image": WCAFeatureImg,
-        "tag": "wordpress",
+        "tag": "web",
         "link": "https://webcoastapps.com/",
     },
     {
@@ -226,11 +242,10 @@ class PortfolioSection extends React.Component {
                     <div>
                         <div class="flex flex-wrap justify-center">
                             <button onClick={() => this.PortfolioBtnClick("All")} type="button" class={this.state.selectedPortfolio === "All" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>All</button>
-                            <button onClick={() => this.PortfolioBtnClick("react")} type="button" class={this.state.selectedPortfolio === "react" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React</button>
                             <button onClick={() => this.PortfolioBtnClick("flutter")} type="button" class={this.state.selectedPortfolio === "flutter" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Flutter</button>
                             <button onClick={() => this.PortfolioBtnClick("android-studio")} type="button" class={this.state.selectedPortfolio === "android-studio" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Android Studio</button>
                             <button onClick={() => this.PortfolioBtnClick("react-native")} type="button" class={this.state.selectedPortfolio === "react-native" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>React-Native</button>
-                            <button onClick={() => this.PortfolioBtnClick("wordpress")} type="button" class={this.state.selectedPortfolio === "wordpress" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Wordpress</button>
+                            <button onClick={() => this.PortfolioBtnClick("web")} type="button" class={this.state.selectedPortfolio === "web" ? "bg-cyan-300 dark:bg-cyan-400 text-gray-900 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:text-white dark:border-gray-600 dark:hover:border-gray-600 dark:focus:ring-gray-700" : "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"}>Web Development</button>
                         </div>
                         <div class="grid lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-2 sm:grid-cols-1 sm:gap-1">
                             {

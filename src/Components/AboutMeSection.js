@@ -1,131 +1,383 @@
-import React from 'react';
+import { useState } from 'react';
 import { Slide } from "react-awesome-reveal";
 
-class AboutMeSection extends React.Component {
-    render() {
-        return (
-            <section id="about">
-                <div class="lg:m-30 md:m-20 sm:m-10 m-10">
-                    <div class="flex justify-center">
-                        <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight md:text-3xl lg:text-4xl text-transparent bg-clip-text bg-gradient-to-r to-emerald-400 from-cyan-400 underline underline-offset-8 decoration-cyan-400 ">About Me</h1>
-                    </div>
+import {
+    FaHtml5,
+    FaCss3Alt,
+    FaJsSquare,
+    FaPhp,
+    FaJira,
+    FaAndroid,
+    FaReact,
+    FaBootstrap,
+    FaGitAlt,
+    FaLaravel,
+    FaDatabase,
+    FaNodeJs,
+    FaNpm
+} from 'react-icons/fa';
+import { SiTailwindcss, SiFlutter, SiTypescript, SiRedux } from 'react-icons/si';
 
-                    <div class="grid lg:grid-cols-2 lg:gap-2 md:grid-cols-1 md:gap-1">
-                        <Slide direction="left" triggerOnce>
-                            <div>
-                                <h5 class="text-xl font-bold text-cyan-400 dark:text-cyan-400">Hello!</h5>
-                                <p class="mb-3 text-left text-gray-500 dark:text-gray-300 mt-4">I'm passionate about harnessing technology to create innovative solutions. With a strong foundation in HTML, CSS, JavaScript, PHP, MySQL, Bootstrap, React, React-Native, and Flutter, I've honed my skills in both front-end and back-end development. I'm excited to continue learning and growing in my current role, staying up-to-date with the latest trends and technologies, and applying them to create innovative solutions.</p>
-                                <p class="mb-3 text-left text-gray-500 dark:text-gray-300">I would love to hear from you. Whether it's a project, job opportunity, or just a chat. Feel free to contact me.</p>
-                            </div>
-                        </Slide>
-                        <Slide direction="right" triggerOnce>
-                            <div>
-                                <h5 class="text-xl font-bold text-cyan-600 dark:text-cyan-500">Skills</h5>
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#E65100" d="M41,5H7l3,34l14,4l14-4L41,5L41,5z"></path><path fill="#FF6D00" d="M24 8L24 39.9 35.2 36.7 37.7 8z"></path><path fill="#FFF" d="M24,25v-4h8.6l-0.7,11.5L24,35.1v-4.2l4.1-1.4l0.3-4.5H24z M32.9,17l0.3-4H24v4H32.9z"></path><path fill="#EEE" d="M24,30.9v4.2l-7.9-2.6L15.7,27h4l0.2,2.5L24,30.9z M19.1,17H24v-4h-9.1l0.7,12H24v-4h-4.6L19.1,17z"></path>
-                                    </svg>
-                                    HTML
-                                </span>
+const skills = [
+    // Core Web Technologies
+    { name: 'HTML', icon: FaHtml5, color: 'from-orange-500 to-orange-600', iconColor: 'text-orange-600', category: 'web', level: 95 },
+    { name: 'CSS', icon: FaCss3Alt, color: 'from-blue-500 to-blue-600', iconColor: 'text-blue-600', category: 'web', level: 90 },
+    { name: 'JavaScript', icon: FaJsSquare, color: 'from-yellow-400 to-yellow-500', iconColor: 'text-yellow-500', category: 'web', level: 92 },
+    { name: 'TypeScript', icon: SiTypescript, color: 'from-blue-500 to-blue-700', iconColor: 'text-blue-600', category: 'web', level: 85 },
 
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#0277BD" d="M41,5H7l3,34l14,4l14-4L41,5L41,5z"></path><path fill="#039BE5" d="M24 8L24 39.9 35.2 36.7 37.7 8z"></path><path fill="#FFF" d="M33.1 13L24 13 24 17 28.9 17 28.6 21 24 21 24 25 28.4 25 28.1 29.5 24 30.9 24 35.1 31.9 32.5 32.6 21 32.6 21z"></path><path fill="#EEE" d="M24,13v4h-8.9l-0.3-4H24z M19.4,21l0.2,4H24v-4H19.4z M19.8,27h-4l0.3,5.5l7.9,2.6v-4.2l-4.1-1.4L19.8,27z"></path>
-                                    </svg>
-                                    CSS
-                                </span>
+    // Frontend Frameworks & Libraries
+    { name: 'React', icon: FaReact, color: 'from-cyan-400 to-cyan-600', iconColor: 'text-cyan-500', category: 'web', level: 93 },
+    { name: 'Redux', icon: SiRedux, color: 'from-purple-500 to-purple-700', iconColor: 'text-purple-600', category: 'web', level: 80 },
+    { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'from-cyan-300 to-cyan-500', iconColor: 'text-cyan-400', category: 'web', level: 95 },
+    { name: 'Bootstrap', icon: FaBootstrap, color: 'from-purple-500 to-purple-700', iconColor: 'text-purple-600', category: 'web', level: 88 },
 
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#ffd600" d="M6,42V6h36v36H6z"></path><path fill="#000001" d="M29.538 32.947c.692 1.124 1.444 2.201 3.037 2.201 1.338 0 2.04-.665 2.04-1.585 0-1.101-.726-1.492-2.198-2.133l-.807-.344c-2.329-.988-3.878-2.226-3.878-4.841 0-2.41 1.845-4.244 4.728-4.244 2.053 0 3.528.711 4.592 2.573l-2.514 1.607c-.553-.988-1.151-1.377-2.078-1.377-.946 0-1.545.597-1.545 1.377 0 .964.6 1.354 1.985 1.951l.807.344C36.452 29.645 38 30.839 38 33.523 38 36.415 35.716 38 32.65 38c-2.999 0-4.702-1.505-5.65-3.368L29.538 32.947zM17.952 33.029c.506.906 1.275 1.603 2.381 1.603 1.058 0 1.667-.418 1.667-2.043V22h3.333v11.101c0 3.367-1.953 4.899-4.805 4.899-2.577 0-4.437-1.746-5.195-3.368L17.952 33.029z"></path>
-                                    </svg>
-                                    Javascript
-                                </span>
+    // Backend & Database
+    { name: 'Node.js', icon: FaNodeJs, color: 'from-green-500 to-green-700', iconColor: 'text-green-600', category: 'web', level: 87 },
+    { name: 'PHP', icon: FaPhp, color: 'from-indigo-500 to-indigo-700', iconColor: 'text-indigo-600', category: 'web', level: 85 },
+    { name: 'Laravel', icon: FaLaravel, color: 'from-red-400 to-red-600', iconColor: 'text-red-500', category: 'web', level: 83 },
+    { name: 'MySQL', icon: FaDatabase, color: 'from-blue-400 to-blue-600', iconColor: 'text-blue-500', category: 'web', level: 86 },
 
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 30 30">
-                                        <path fill="#dcd5f2" d="M15,22.5c-7.995,0-14.5-3.364-14.5-7.5S7.005,7.5,15,7.5s14.5,3.364,14.5,7.5S22.995,22.5,15,22.5z"></path><path fill="#8b75a1" d="M15,8c7.589,0,14,3.206,14,7s-6.411,7-14,7S1,18.794,1,15S7.411,8,15,8 M15,7C6.716,7,0,10.582,0,15 s6.716,8,15,8s15-3.582,15-8S23.284,7,15,7L15,7z"></path><path fill="#36404d" d="M9.417 13c.598 0 1.116.203 1.384.543.192.244.245.555.157.927C10.69 15.599 10.216 16 8.089 16H6.58l.563-3H9.417M9.417 12H6.313L5 19h1l.396-2h1.693c2.199 0 3.395-.417 3.842-2.299C12.316 13.084 11.039 12 9.417 12L9.417 12zM22.417 13c.598 0 1.116.203 1.384.543.192.244.245.555.157.927C23.69 15.599 23.216 16 21.089 16H19.58l.563-3H22.417M22.417 12h-3.104L18 19h1l.396-2h1.693c2.199 0 3.395-.417 3.842-2.299C25.316 13.084 24.039 12 22.417 12L22.417 12z"></path><g><path fill="#36404d" d="M17.652,12.424C17.323,12.122,16.742,12,15.875,12h-1.848l0.451-2h-1.017L12,17h1.016l0.841-4h0.171 h1.848c0.91,0,1.094,0.155,1.096,0.155c0.019,0.03,0.058,0.194-0.008,0.532L16.288,17h1.046l0.61-3.121 C18.075,13.212,17.976,12.722,17.652,12.424z"></path></g>
-                                    </svg>
-                                    PHP
-                                </span>
+    // Mobile Development
+    { name: 'React Native', icon: FaReact, color: 'from-cyan-400 to-cyan-600', iconColor: 'text-cyan-500', category: 'mobile', level: 88 },
+    { name: 'Flutter', icon: SiFlutter, color: 'from-blue-300 to-blue-500', iconColor: 'text-blue-400', category: 'mobile', level: 82 },
+    { name: 'Android Studio', icon: FaAndroid, color: 'from-green-400 to-green-600', iconColor: 'text-green-500', category: 'mobile', level: 80 },
 
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#d43a02" d="M23.65,24.898c-0.998-1.609-1.722-2.943-2.725-5.455C19.229,15.2,31.24,11.366,26.37,3.999	c2.111,5.089-7.577,8.235-8.477,12.473C17.07,20.37,23.645,24.898,23.65,24.898z"></path><path fill="#d43a02" d="M23.878,17.27c-0.192,2.516,2.229,3.857,2.299,5.695c0.056,1.496-1.447,2.743-1.447,2.743	s2.728-0.536,3.579-2.818c0.945-2.534-1.834-4.269-1.548-6.298c0.267-1.938,6.031-5.543,6.031-5.543S24.311,11.611,23.878,17.27z"></path><linearGradient id="P9ujQJgz7XN9Qbny9S64Ha_Pd2x9GWu9ovX_gr1" x1="22.677" x2="30.737" y1="21.174" y2="43.318" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5c65d6"></stop><stop offset=".999" stop-color="#464eb0"></stop></linearGradient><path fill="url(#P9ujQJgz7XN9Qbny9S64Ha_Pd2x9GWu9ovX_gr1)" d="M32.084,25.055c1.754-0.394,3.233,0.723,3.233,2.01c0,2.901-4.021,5.643-4.021,5.643 s6.225-0.742,6.225-5.505C37.521,24.053,34.464,23.266,32.084,25.055z M29.129,27.395c0,0,1.941-1.383,2.458-1.902 c-4.763,1.011-15.638,1.147-15.638,0.269c0-0.809,3.507-1.638,3.507-1.638s-7.773-0.112-7.773,2.181 C11.683,28.695,21.858,28.866,29.129,27.395z"></path><linearGradient id="P9ujQJgz7XN9Qbny9S64Hb_Pd2x9GWu9ovX_gr2" x1="19.498" x2="27.296" y1="22.77" y2="44.196" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5c65d6"></stop><stop offset=".999" stop-color="#464eb0"></stop></linearGradient><path fill="url(#P9ujQJgz7XN9Qbny9S64Hb_Pd2x9GWu9ovX_gr2)" d="M27.935,29.571 c-4.509,1.499-12.814,1.02-10.354-0.993c-1.198,0-2.974,0.963-2.974,1.889c0,1.857,8.982,3.291,15.63,0.572L27.935,29.571z"></path><linearGradient id="P9ujQJgz7XN9Qbny9S64Hc_Pd2x9GWu9ovX_gr3" x1="18.698" x2="26.59" y1="23.455" y2="45.14" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5c65d6"></stop><stop offset=".999" stop-color="#464eb0"></stop></linearGradient><path fill="url(#P9ujQJgz7XN9Qbny9S64Hc_Pd2x9GWu9ovX_gr3)" d="M18.686,32.739 c-1.636,0-2.695,1.054-2.695,1.822c0,2.391,9.76,2.632,13.627,0.205l-2.458-1.632C24.271,34.404,17.014,34.579,18.686,32.739z"></path><linearGradient id="P9ujQJgz7XN9Qbny9S64Hd_Pd2x9GWu9ovX_gr4" x1="18.03" x2="25.861" y1="24.198" y2="45.712" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5c65d6"></stop><stop offset=".999" stop-color="#464eb0"></stop></linearGradient><path fill="url(#P9ujQJgz7XN9Qbny9S64Hd_Pd2x9GWu9ovX_gr4)" d="M36.281,36.632 c0-0.936-1.055-1.377-1.433-1.588c2.228,5.373-22.317,4.956-22.317,1.784c0-0.721,1.807-1.427,3.477-1.093l-1.42-0.839 C11.26,34.374,9,35.837,9,37.017C9,42.52,36.281,42.255,36.281,36.632z"></path><linearGradient id="P9ujQJgz7XN9Qbny9S64He_Pd2x9GWu9ovX_gr5" x1="20.725" x2="28.228" y1="24.582" y2="45.197" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5c65d6"></stop><stop offset=".999" stop-color="#464eb0"></stop></linearGradient><path fill="url(#P9ujQJgz7XN9Qbny9S64He_Pd2x9GWu9ovX_gr5)" d="M39,38.604 c-4.146,4.095-14.659,5.587-25.231,3.057C24.341,46.164,38.95,43.628,39,38.604z"></path>
-                                    </svg>
-                                    JAVA
-                                </span>
+    // Tools & Version Control
+    { name: 'Git', icon: FaGitAlt, color: 'from-orange-400 to-orange-600', iconColor: 'text-orange-500', category: 'tools', level: 90 },
+    { name: 'npm', icon: FaNpm, color: 'from-red-500 to-red-700', iconColor: 'text-red-600', category: 'tools', level: 88 },
+    { name: 'Jira', icon: FaJira, color: 'from-blue-300 to-blue-500', iconColor: 'text-blue-400', category: 'tools', level: 85 }
+];
 
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#00c853" d="M4,23C4,11.954,12.954,3,24,3s20,8.954,20,20l-20,2L4,23z"></path><path fill="#00e676" d="M44,23c0,11.046-8.954,20-20,20S4,34.046,4,23H44z"></path><path fill="#c2eafd" d="M39.29,42.34v3.16c0,0.19-0.1,0.35-0.25,0.43c-0.14,0.09-0.33,0.1-0.5,0l-2.72-1.59l-4.68-8.15	l-2-3.47l-3.75-6.52l2.93-2.93l3.99,6.94l2.07,3.6L39.29,42.34z"></path><path fill="#9addfb" d="M31.231,28.335c-0.814,1.101-1.869,2.011-3.092,2.648l3.991,6.941	c1.185-0.648,2.272-1.446,3.265-2.346L31.231,28.335z"></path><path fill="#c2eafd" d="M39,23c0,4.24-1.77,8.08-4.62,10.81c-0.96,0.93-2.05,1.73-3.24,2.38C29.02,37.34,26.59,38,24,38	c-2.53,0-4.96-0.62-7.14-1.81l-4.68,8.15l-2.72,1.59c-0.17,0.1-0.36,0.09-0.5,0c-0.15-0.08-0.25-0.24-0.25-0.43v-3.16l10.97-19.07	l2.93,2.93l-3.75,6.53C20.43,33.56,22.18,34,24,34c1.86,0,3.61-0.46,5.14-1.28c1.21-0.63,2.28-1.49,3.17-2.51	C33.99,28.27,35,25.76,35,23H39z"></path><path fill="#37474f" d="M28.5,13H26v-3h-4v3h-2.5c-0.828,0-1.5,0.672-1.5,1.5V23l4.932,4.932c0.59,0.59,1.546,0.59,2.135,0	L30,23v-8.5C30,13.672,29.328,13,28.5,13z M24,22c-1.381,0-2.5-1.119-2.5-2.5c0-1.381,1.119-2.5,2.5-2.5s2.5,1.119,2.5,2.5	C26.5,20.881,25.381,22,24,22z"></path>
-                                    </svg>
-                                    Android Studio
-                                </span>
+const SkillBadge = ({ skill, index }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const Icon = skill.icon;
 
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 16 16">
-                                        <path fill="#4e7ab5" d="M8,11.568c-4.561,0-8-1.534-8-3.568s3.439-3.568,8-3.568S16,5.966,16,8S12.561,11.568,8,11.568z M8,5.432C3.875,5.432,1,6.785,1,8s2.875,2.568,7,2.568S15,9.215,15,8S12.125,5.432,8,5.432z"></path><path fill="#4e7ab5" d="M5.027,15L5.027,15c-0.35,0-0.668-0.081-0.947-0.242c-0.455-0.262-0.783-0.726-0.948-1.343 c-0.445-1.663,0.274-4.474,1.833-7.161C6.792,3.111,9.206,1,10.974,1c0.35,0,0.668,0.081,0.947,0.242 c0.454,0.261,0.782,0.725,0.947,1.341c0.445,1.664-0.274,4.475-1.834,7.162C9.21,12.888,6.796,15,5.027,15z M10.974,2 C9.82,2,7.625,3.667,5.83,6.757c-1.41,2.43-2.106,5.002-1.732,6.4c0.097,0.359,0.258,0.606,0.48,0.734 c0.971,0.558,3.526-1.09,5.591-4.649c1.411-2.431,2.107-5.003,1.733-6.401c-0.097-0.358-0.258-0.605-0.479-0.732 C11.295,2.036,11.148,2,10.974,2z"></path><path fill="#4e7ab5" d="M10.974,15L10.974,15c-1.769,0-4.183-2.112-6.008-5.254C3.406,7.06,2.687,4.249,3.132,2.585 C3.297,1.968,3.625,1.503,4.08,1.242C4.359,1.081,4.678,1,5.027,1c1.768,0,4.182,2.112,6.007,5.256 c1.56,2.687,2.279,5.497,1.833,7.161c-0.165,0.617-0.492,1.081-0.946,1.341C11.642,14.919,11.323,15,10.974,15z M5.027,2 C4.853,2,4.706,2.036,4.578,2.109c-0.223,0.128-0.384,0.375-0.48,0.735c-0.374,1.398,0.322,3.97,1.733,6.4 C7.624,12.333,9.819,14,10.974,14l0,0c0.175,0,0.321-0.036,0.449-0.109c0.222-0.127,0.383-0.374,0.479-0.733 c0.375-1.398-0.321-3.97-1.732-6.4C8.376,3.667,6.181,2,5.027,2z"></path><path fill="#8bb7f0" d="M9,8c0,0.553-0.447,1-1,1S7,8.553,7,8s0.447-1,1-1S9,7.447,9,8z"></path><path fill="#4e7ab5" d="M8,9.5C7.173,9.5,6.5,8.827,6.5,8S7.173,6.5,8,6.5S9.5,7.173,9.5,8S8.827,9.5,8,9.5z M8,7.5 C7.725,7.5,7.5,7.724,7.5,8S7.725,8.5,8,8.5S8.5,8.276,8.5,8S8.275,7.5,8,7.5z"></path>
-                                    </svg>
-                                    React-Native
-                                </span>
-
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#00acc1" d="M24,9.604c-6.4,0-10.4,3.199-12,9.597c2.4-3.199,5.2-4.398,8.4-3.599 c1.826,0.456,3.131,1.781,4.576,3.247C27.328,21.236,30.051,24,36,24c6.4,0,10.4-3.199,12-9.598c-2.4,3.199-5.2,4.399-8.4,3.6 c-1.825-0.456-3.13-1.781-4.575-3.247C32.672,12.367,29.948,9.604,24,9.604L24,9.604z M12,24c-6.4,0-10.4,3.199-12,9.598 c2.4-3.199,5.2-4.399,8.4-3.599c1.825,0.457,3.13,1.781,4.575,3.246c2.353,2.388,5.077,5.152,11.025,5.152 c6.4,0,10.4-3.199,12-9.598c-2.4,3.199-5.2,4.399-8.4,3.599c-1.826-0.456-3.131-1.781-4.576-3.246C20.672,26.764,17.949,24,12,24 L12,24z"></path>
-                                    </svg>
-                                    Tailwind CSS
-                                </span>
-
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#673ab7" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5 V37z"></path><path fill="#fff" d="M33.03,25.6c-0.65-0.9-1.59-1.52-2.8-1.85c0,0,1.02-0.37,1.94-1.75c0.55-0.88,0.83-1.94,0.83-3.18 c0-2.15-0.78-3.8-2.34-4.93C29.1,12.76,27.34,12,24.35,12H15v24h10.43c2.83-0.02,4.96-0.63,6.41-1.8c1.44-1.19,2.16-2.95,2.16-5.3 C34,27.6,33.68,26.5,33.03,25.6z M21,16c0,0,4.17,0,4.25,0c1.52,0,2.75,1.23,2.75,2.75c0,1.52-1.23,2.75-2.75,2.75 c-0.08,0-4.25,0-4.25,0V16z M26,32h-5v-6h5c1.66,0,3,1.34,3,3C29,30.66,27.66,32,26,32z"></path>
-                                    </svg>
-                                    Bootstrap
-                                </span>
-
-
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#fff" d="M24 4.050000000000001A19.95 19.95 0 1 0 24 43.95A19.95 19.95 0 1 0 24 4.050000000000001Z"></path><path fill="#01579b" d="M8.001,24c0,6.336,3.68,11.806,9.018,14.4L9.385,17.488C8.498,19.479,8.001,21.676,8.001,24z M34.804,23.194c0-1.977-1.063-3.35-1.67-4.412c-0.813-1.329-1.576-2.437-1.576-3.752c0-1.465,1.471-2.84,3.041-2.84 c0.071,0,0.135,0.006,0.206,0.008C31.961,9.584,28.168,8,24.001,8c-5.389,0-10.153,2.666-13.052,6.749 c0.228,0.074,0.307,0.039,0.611,0.039c1.669,0,4.264-0.2,4.264-0.2c0.86-0.057,0.965,1.212,0.099,1.316c0,0-0.864,0.105-1.828,0.152 l5.931,17.778l3.5-10.501l-2.603-7.248c-0.861-0.046-1.679-0.152-1.679-0.152c-0.862-0.056-0.762-1.375,0.098-1.316 c0,0,2.648,0.2,4.217,0.2c1.675,0,4.264-0.2,4.264-0.2c0.861-0.057,0.965,1.212,0.104,1.316c0,0-0.87,0.105-1.832,0.152l5.891,17.61 l1.599-5.326C34.399,26.289,34.804,24.569,34.804,23.194z M24.281,25.396l-4.8,13.952c1.436,0.426,2.95,0.652,4.52,0.652 c1.861,0,3.649-0.324,5.316-0.907c-0.04-0.071-0.085-0.143-0.118-0.22L24.281,25.396z M38.043,16.318 c0.071,0.51,0.108,1.059,0.108,1.645c0,1.628-0.306,3.451-1.219,5.737l-4.885,14.135C36.805,35.063,40,29.902,40,24 C40,21.219,39.289,18.604,38.043,16.318z"></path><path fill="#01579b" d="M4,24c0,11.024,8.97,20,19.999,20C35.03,44,44,35.024,44,24S35.03,4,24,4S4,12.976,4,24z M5.995,24 c0-9.924,8.074-17.999,18.004-17.999S42.005,14.076,42.005,24S33.929,42.001,24,42.001C14.072,42.001,5.995,33.924,5.995,24z"></path>
-                                    </svg>
-                                    WordPress
-                                </span>
-
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <path fill="#F4511E" d="M42.2,22.1L25.9,5.8C25.4,5.3,24.7,5,24,5c0,0,0,0,0,0c-0.7,0-1.4,0.3-1.9,0.8l-3.5,3.5l4.1,4.1c0.4-0.2,0.8-0.3,1.3-0.3c1.7,0,3,1.3,3,3c0,0.5-0.1,0.9-0.3,1.3l4,4c0.4-0.2,0.8-0.3,1.3-0.3c1.7,0,3,1.3,3,3s-1.3,3-3,3c-1.7,0-3-1.3-3-3c0-0.5,0.1-0.9,0.3-1.3l-4-4c-0.1,0-0.2,0.1-0.3,0.1v10.4c1.2,0.4,2,1.5,2,2.8c0,1.7-1.3,3-3,3s-3-1.3-3-3c0-1.3,0.8-2.4,2-2.8V18.8c-1.2-0.4-2-1.5-2-2.8c0-0.5,0.1-0.9,0.3-1.3l-4.1-4.1L5.8,22.1C5.3,22.6,5,23.3,5,24c0,0.7,0.3,1.4,0.8,1.9l16.3,16.3c0,0,0,0,0,0c0.5,0.5,1.2,0.8,1.9,0.8s1.4-0.3,1.9-0.8l16.3-16.3c0.5-0.5,0.8-1.2,0.8-1.9C43,23.3,42.7,22.6,42.2,22.1z"></path>
-                                    </svg>
-                                    Git
-                                </span>
-
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 100 100">
-                                        <path fill="#f15b6c" d="M69,82H31c-7.18,0-13-5.82-13-13V31c0-7.18,5.82-13,13-13h38c7.18,0,13,5.82,13,13v38	C82,76.18,76.18,82,69,82z"></path><path fill="#1f212b" d="M66.5,78h-33C27.159,78,22,72.841,22,66.5v-33C22,27.159,27.159,22,33.5,22h33	c0.353,0,0.701,0.021,1.046,0.053c0.275,0.025,0.477,0.269,0.452,0.544c-0.025,0.274-0.258,0.476-0.544,0.452	C67.139,23.02,66.822,23,66.5,23h-33C27.71,23,23,27.71,23,33.5v33C23,72.29,27.71,77,33.5,77h33C72.29,77,77,72.29,77,66.5v-17	c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v17C78,72.841,72.841,78,66.5,78z M77.5,40c-0.276,0-0.5-0.224-0.5-0.5v-2	c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v2C78,39.776,77.776,40,77.5,40z M77.5,47c-0.276,0-0.5-0.224-0.5-0.5v-4	c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v4C78,46.776,77.776,47,77.5,47z"></path><path fill="#1f212b" d="M69,83H31c-7.72,0-14-6.28-14-14V31c0-7.72,6.28-14,14-14h38c7.72,0,14,6.28,14,14v38	C83,76.72,76.72,83,69,83z M31,19c-6.617,0-12,5.383-12,12v38c0,6.617,5.383,12,12,12h38c6.617,0,12-5.383,12-12V31	c0-6.617-5.383-12-12-12H31z"></path><path fill="#fefdef" d="M61.957,48.415C58.749,48.972,54.504,49.28,50,49.28c-4.503,0-8.749-0.308-11.955-0.865	c-3.593-0.625-5.423-1.467-5.901-2.735C32.058,45.908,32,46.144,32,46.4v7.2c0,1.685,1.809,2.719,6.045,3.455	C41.25,57.612,45.497,57.92,50,57.92c4.504,0,8.749-0.308,11.958-0.865C66.192,56.319,68,55.285,68,53.6v-7.2	c0-0.256-0.056-0.492-0.141-0.72C67.38,46.948,65.549,47.79,61.957,48.415"></path><path fill="#fefdef" d="M61.957,59.935C58.749,60.492,54.504,60.8,50,60.8c-4.503,0-8.749-0.308-11.955-0.865	c-3.593-0.625-5.423-1.467-5.901-2.735C32.058,57.428,32,57.664,32,57.92v7.2c0,1.685,1.809,2.719,6.045,3.455	C41.25,69.132,45.497,69.44,50,69.44c4.504,0,8.749-0.308,11.958-0.865C66.192,67.839,68,66.805,68,65.12v-7.2	c0-0.256-0.056-0.492-0.141-0.72C67.38,58.467,65.549,59.31,61.957,59.935"></path><path fill="#fefdef" d="M61.958,31.425C58.75,30.867,54.504,30.56,50,30.56c-4.503,0-8.749,0.307-11.956,0.865	C33.809,32.161,32,33.195,32,34.88v7.2c0,1.685,1.809,2.719,6.044,3.455C41.251,46.093,45.497,46.4,50,46.4	c4.504,0,8.749-0.307,11.958-0.865C66.193,44.798,68,43.765,68,42.08v-7.2C68,33.195,66.193,32.161,61.958,31.425z M50,32	c9.147,0,16.56,1.29,16.56,2.88S59.147,37.76,50,37.76c-9.145,0-16.56-1.29-16.56-2.88S40.855,32,50,32z"></path><path fill="#f15b6c" d="M56.235,41.517c-0.45,0-0.83-0.349-0.861-0.805c-0.032-0.476,0.327-0.889,0.804-0.921	c2.217-0.151,4.207-0.379,5.914-0.676c0.606-0.104,1.434-0.247,2.278-0.465c0.456-0.12,0.933,0.158,1.053,0.621	c0.119,0.462-0.159,0.933-0.621,1.052c-0.913,0.236-1.781,0.385-2.415,0.495c-1.765,0.307-3.814,0.542-6.092,0.697	C56.275,41.516,56.255,41.517,56.235,41.517z"></path><path fill="#f15b6c" d="M56.235,53.037c-0.45,0-0.83-0.349-0.861-0.805c-0.032-0.476,0.327-0.889,0.804-0.921	c2.212-0.151,4.202-0.379,5.914-0.676c0.606-0.104,1.434-0.247,2.278-0.465c0.456-0.121,0.933,0.157,1.053,0.621	c0.119,0.462-0.159,0.933-0.621,1.052c-0.913,0.236-1.781,0.385-2.415,0.495c-1.77,0.308-3.819,0.542-6.092,0.697	C56.275,53.036,56.255,53.037,56.235,53.037z"></path><path fill="#f15b6c" d="M56.235,64.556c-0.45,0-0.83-0.35-0.861-0.806c-0.032-0.476,0.327-0.888,0.804-0.92	c2.211-0.151,4.201-0.378,5.914-0.676c0.606-0.104,1.434-0.247,2.278-0.465c0.456-0.12,0.933,0.158,1.053,0.621	c0.119,0.462-0.159,0.933-0.621,1.052c-0.913,0.236-1.781,0.385-2.415,0.495c-1.771,0.308-3.821,0.542-6.092,0.697	C56.275,64.555,56.255,64.556,56.235,64.556z"></path>
-                                    </svg>
-                                    MySQL
-                                </span>
-
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-                                        <linearGradient id="gFTOxFpGMtrTwKmyJmDVma_pCvIfmctRaY8_gr1" x1="34.31" x2="21.223" y1="47.31" y2="34.223" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0176d0"></stop><stop offset=".454" stop-color="#0275ce"></stop><stop offset=".617" stop-color="#0472c7"></stop><stop offset=".733" stop-color="#076bbc"></stop><stop offset=".827" stop-color="#0d63ab"></stop><stop offset=".907" stop-color="#135895"></stop><stop offset=".933" stop-color="#16538c"></stop></linearGradient><polygon fill="url(#gFTOxFpGMtrTwKmyJmDVma_pCvIfmctRaY8_gr1)" points="37,44 25,44 14,33 20,27"></polygon><polygon fill="#50e6ff" points="5,24 25,4 37,4 11,30"></polygon><polygon fill="#50e6ff" points="37,22 20,39 14,33 25,22"></polygon><rect width="8.485" height="8.485" x="15.757" y="28.757" fill="#35c1f1" transform="rotate(-45.001 20 33)"></rect>
-                                    </svg>
-                                    Flutter
-                                </span>
-
-                                <span class="m-4 bg-cyan-100 text-cyan-800 text-s font-medium inline-flex items-center p-2 rounded dark:bg-gray-700 dark:text-cyan-400 border border-cyan-400">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" fill="#FF2D20">
-                                        <path d="M6.63 3.26a.5.5 0 0 0-.41 0L.54 5.91a.5.5 0 0 0-.29.45v11.16c0 .19.11.37.29.45l5.68 2.65a.5.5 0 0 0 .41 0l5.68-2.65a.5.5 0 0 0 .29-.45V6.36a.5.5 0 0 0-.29-.45L6.63 3.26zm-.2 1.02 5.06 2.36v10.43l-5.06 2.36-5.06-2.36V6.64l5.06-2.36zM17.37 8.16a.5.5 0 0 0-.41 0l-5.68 2.65a.5.5 0 0 0-.29.45v5.91c0 .19.11.37.29.45l5.68 2.65a.5.5 0 0 0 .41 0l5.68-2.65a.5.5 0 0 0 .29-.45v-5.91a.5.5 0 0 0-.29-.45l-5.68-2.65zm-.2 1.02 5.06 2.36v5.34l-5.06 2.36-5.06-2.36v-5.34l5.06-2.36zM11.5 11.12a.5.5 0 0 0-.41 0L5.41 13.77a.5.5 0 0 0-.29.45v5.91c0 .19.11.37.29.45l5.68 2.65a.5.5 0 0 0 .41 0l5.68-2.65a.5.5 0 0 0 .29-.45v-5.91a.5.5 0 0 0-.29-.45l-5.68-2.65zm-.2 1.02 5.06 2.36v5.34l-5.06 2.36-5.06-2.36v-5.34l5.06-2.36z" />
-                                    </svg>
-                                    Laravel
-                                </span>
-                            </div>
-                        </Slide>
-                    </div>
+    return (
+        <div 
+            className="group relative"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{ animationDelay: `${index * 0.05}s` }}
+        >
+            {/* Main skill badge with enhanced styling */}
+            <div className={`
+                relative m-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800/80 dark:to-gray-900/80 
+                backdrop-blur-sm
+                text-sm font-semibold inline-flex items-center 
+                px-5 py-3.5 rounded-2xl
+                border border-gray-200 dark:border-gray-700/50
+                transition-all duration-300 
+                hover:scale-110 hover:shadow-2xl hover:-translate-y-1
+                cursor-pointer animate-fadeInUp overflow-hidden
+                ${isHovered ? `border-transparent shadow-lg` : ''}
+            `}>
+                {/* Animated gradient border on hover */}
+                <div className={`
+                    absolute inset-0 rounded-2xl bg-gradient-to-r ${skill.color} opacity-0 
+                    group-hover:opacity-100 transition-opacity duration-300
+                `} style={{ padding: '1px' }}>
+                    <div className="h-full w-full bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl"></div>
                 </div>
-            </section>
-        );
-    }
-}
+                
+                {/* Glow effect */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300 `}></div>
+                
+                <Icon className={`mr-3 text-2xl ${skill.iconColor} group-hover:scale-125 group-hover:rotate-12 transition-all duration-300`} />
+                <span className="text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white font-medium transition-colors relative">
+                    {skill.name}
+                </span>
+            </div>
+            
+            {/* Enhanced skill level tooltip */}
+            {isHovered && (
+                <div className="absolute -bottom-15 left-1/2 -translate-x-1/2 z-10 animate-fadeIn pointer-events-none">
+                    <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-black border-2 border-cyan-400/50 rounded-xl px-5 py-3 shadow-2xl shadow-cyan-500/30 min-w-[160px] backdrop-blur-sm">
+                        <div className="text-xs text-gray-600 dark:text-gray-400 mb-1 font-semibold uppercase tracking-wider">Proficiency</div>
+                        <div className="flex items-center gap-3">
+                            <div className="flex-1 h-2.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden border border-gray-300 dark:border-gray-700">
+                                <div 
+                                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-700 shadow-lg`}
+                                    style={{ 
+                                        width: `${skill.level}%`,
+                                        boxShadow: `0 0 10px currentColor`
+                                    }}
+                                ></div>
+                            </div>
+                            <span className="text-sm font-bold text-cyan-600 dark:text-cyan-400 min-w-[45px]">{skill.level}%</span>
+                        </div>
+                    </div>
+                    {/* Tooltip arrow */}
+                    <div className="w-4 h-4 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-black border-t-2 border-l-2 border-cyan-400/50 transform rotate-45 absolute -top-1.5 left-1/2 -translate-x-1/2"></div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const CategoryFilter = ({ categories, activeCategory, setActiveCategory }) => {
+    return (
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {categories.map((category) => (
+                <button
+                    key={category.id}
+                    onClick={() => setActiveCategory(category.id)}
+                    className={`
+                        relative px-6 py-3 rounded-2xl font-semibold text-sm
+                        transition-all duration-300 overflow-hidden
+                        ${activeCategory === category.id
+                            ? 'text-white shadow-xl scale-105'
+                            : 'bg-gray-200 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700/50 border border-gray-300 dark:border-gray-700/50 hover:border-gray-400 dark:hover:border-gray-600'
+                        }
+                        hover:scale-105 backdrop-blur-sm
+                    `}
+                >
+                    {activeCategory === category.id && (
+                        <>
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 animate-gradient-shift"></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 opacity-50 blur-xl"></div>
+                        </>
+                    )}
+                    <span className="relative ">{category.label}</span>
+                </button>
+            ))}
+        </div>
+    );
+};
+
+const AboutMeSection = () => {
+    const [activeCategory, setActiveCategory] = useState('all');
+
+    const categories = [
+        { id: 'all', label: 'All Skills' },
+        { id: 'web', label: 'Web Development' },
+        { id: 'mobile', label: 'Mobile' },
+        { id: 'tools', label: 'Tools' }
+    ];
+
+    const filteredSkills = activeCategory === 'all' 
+        ? skills 
+        : skills.filter(skill => skill.category === activeCategory);
+
+    return (
+        <section id="about" className="relative min-h-screen py-24 px-4 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-900 dark:to-black">
+            
+            {/* Animated background elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-1/4 left-10 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-500/10 rounded-full blur-3xl animate-float"></div>
+                <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/10 rounded-full blur-3xl animate-float-delayed"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/5 dark:bg-blue-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
+            </div>
+
+            <div className="max-w-7xl mx-auto relative">
+                {/* Section Header with enhanced styling */}
+                <div className="flex flex-col items-center mb-20">
+                    <div className="flex items-center gap-4 mb-6">
+                        <div className="h-1 w-16 bg-gradient-to-r from-transparent via-cyan-400 to-blue-500 rounded-full animate-shimmer"></div>
+                        <div className="h-2 w-2 bg-cyan-400 rounded-full animate-ping"></div>
+                        <div className="h-1 w-16 bg-gradient-to-r from-blue-500 via-purple-400 to-transparent rounded-full animate-shimmer-delayed"></div>
+                    </div>
+                    
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-center mb-6 relative">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 animate-gradient-shift bg-[length:200%_auto]">
+                            About Me
+                        </span>
+                        {/* Subtle glow effect */}
+                        <div className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 blur-2xl opacity-30 animate-gradient-shift bg-[length:200%_auto]">
+                            About Me
+                        </div>
+                    </h1>
+                    
+                    <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl text-center max-w-2xl leading-relaxed">
+                        Get to know more about my journey, expertise, and passion for creating exceptional digital experiences
+                    </p>
+                </div>
+
+                {/* Main Content Grid with enhanced cards */}
+                <div className="grid lg:grid-cols-2 gap-8 mb-20">
+                    {/* Bio Section with premium styling */}
+                    <Slide direction="left" triggerOnce>
+                        <div className="group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/50 dark:to-gray-900/50 backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-gray-200 dark:border-gray-700/50 shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 hover:border-cyan-500/30 overflow-hidden">
+                            {/* Gradient overlay on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            
+                            <div className="relative">
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="h-1 w-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"></div>
+                                    <h5 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+                                        Hello!
+                                    </h5>
+                                </div>
+                                
+                                <div className="space-y-5">
+                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
+                                        I'm a passionate <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 font-bold">full-stack web developer</span> with a strong focus on building responsive, user-friendly web applications. My core expertise lies in modern web technologies including <span className="text-cyan-600 dark:text-cyan-400 font-semibold">React</span>, <span className="text-cyan-600 dark:text-cyan-400 font-semibold">JavaScript/TypeScript</span>, and back-end frameworks like <span className="text-cyan-600 dark:text-cyan-400 font-semibold">Laravel</span> and <span className="text-cyan-600 dark:text-cyan-400 font-semibold">Node.js</span>.
+                                    </p>
+                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
+                                        I specialize in creating pixel-perfect, accessible interfaces using HTML5, CSS3, and utility-first frameworks like <span className="text-cyan-600 dark:text-cyan-400 font-semibold">Tailwind CSS</span>, ensuring every project delivers an exceptional user experience.
+                                    </p>
+                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
+                                        Beyond web development, I also have experience with cross-platform mobile development using <span className="text-cyan-600 dark:text-cyan-400 font-semibold">React Native</span> and <span className="text-cyan-600 dark:text-cyan-400 font-semibold">Flutter</span>, which gives me a comprehensive understanding of building solutions across different platforms.
+                                    </p>
+                                    
+                                    <div className="pt-6 mt-6 border-t border-gray-200 dark:border-gray-700/50">
+                                        <div className="flex items-start gap-3">
+                                            <div className="w-1 h-full bg-gradient-to-b from-cyan-400 to-transparent rounded-full"></div>
+                                            <p className="text-gray-600 dark:text-gray-400 italic leading-relaxed">
+                                                I'm committed to writing clean, maintainable code and staying current with industry best practices. Let's connect and build something amazing together!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Slide>
+
+                    {/* Quick Stats with enhanced design */}
+                    <Slide direction="right" triggerOnce>
+                        <div className="grid grid-cols-2 gap-4 md:gap-6">
+                            {[
+                                { value: `${skills.length}+`, label: 'Technologies', gradient: 'from-cyan-500 to-blue-500', icon: '🚀' },
+                                { value: 'Full-Stack', label: 'Developer', gradient: 'from-purple-500 to-pink-500', icon: '💻' },
+                                { value: 'Web & Mobile', label: 'Platforms', gradient: 'from-green-500 to-emerald-500', icon: '📱' },
+                                { value: 'Modern', label: 'Tech Stack', gradient: 'from-orange-500 to-red-500', icon: '⚡' }
+                            ].map((stat, index) => (
+                                <div 
+                                    key={index}
+                                    className="group relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/50 dark:to-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700/50 p-6 md:p-8 rounded-3xl text-center hover:scale-105 transition-all duration-300 hover:shadow-2xl overflow-hidden cursor-pointer"
+                                    style={{ animationDelay: `${index * 0.1}s` }}
+                                >
+                                    {/* Animated gradient background */}
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                                    <div className={`absolute -inset-1 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-30 blur-2xl transition-opacity duration-500`}></div>
+                                    
+                                    <div className="relative">
+                                        <div className="text-4xl mb-3 animate-bounce-slow">{stat.icon}</div>
+                                        <div className={`text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${stat.gradient} mb-3`}>
+                                            {stat.value}
+                                        </div>
+                                        <div className="text-gray-600 dark:text-gray-400 font-medium text-sm md:text-base">{stat.label}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </Slide>
+                </div>
+
+                {/* Skills Section with premium design */}
+                <Slide direction="up" triggerOnce>
+                    <div>
+                        <div className="flex flex-col items-center mb-10">
+                            <div className="inline-flex items-center gap-3 mb-4">
+                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
+                                <h5 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
+                                    Technical Skills
+                                </h5>
+                                <div className="w-2 h-2 bg-purple-400 rounded-full animate-ping animation-delay-500"></div>
+                            </div>
+                            <p className="text-gray-600 dark:text-gray-400 text-center mb-8 text-base md:text-lg">
+                                Hover over any skill to see proficiency level
+                            </p>
+                        </div>
+
+                        <CategoryFilter 
+                            categories={categories}
+                            activeCategory={activeCategory}
+                            setActiveCategory={setActiveCategory}
+                        />
+
+                        <div className="relative bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/50 dark:to-gray-900/50 backdrop-blur-sm p-10 md:p-14 rounded-3xl border border-gray-200 dark:border-gray-700/50 shadow-2xl overflow-hidden">
+                            {/* Decorative gradient orbs */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/10 to-transparent rounded-full blur-3xl"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full blur-3xl"></div>
+                            
+                            <div className="relative flex flex-wrap justify-center" role="list" aria-label="Technical skills">
+                                {filteredSkills.map((skill, index) => (
+                                    <SkillBadge key={skill.name} skill={skill} index={index} />
+                                ))}
+                            </div>
+                            
+                            {filteredSkills.length === 0 && (
+                                <div className="text-center py-16">
+                                    <div className="text-6xl mb-4 opacity-20">🔍</div>
+                                    <p className="text-gray-600 dark:text-gray-400 text-lg">No skills found in this category</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </Slide>
+            </div>
+
+            <style>{`
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes fadeInUp {
+                    from { 
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to { 
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                @keyframes gradient-shift {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                }
+                @keyframes shimmer {
+                    0%, 100% { opacity: 0.3; }
+                    50% { opacity: 1; }
+                }
+                @keyframes float {
+                    0%, 100% { transform: translate(0, 0) scale(1); }
+                    33% { transform: translate(30px, -30px) scale(1.1); }
+                    66% { transform: translate(-20px, 20px) scale(0.9); }
+                }
+                @keyframes bounce-slow {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-10px); }
+                }
+                
+                .animate-fadeIn {
+                    animation: fadeIn 0.4s ease-out;
+                }
+                .animate-fadeInUp {
+                    animation: fadeInUp 0.6s ease-out forwards;
+                    opacity: 0;
+                }
+                .animate-gradient-shift {
+                    animation: gradient-shift 8s ease infinite;
+                }
+                .animate-shimmer {
+                    animation: shimmer 2s ease-in-out infinite;
+                }
+                .animate-shimmer-delayed {
+                    animation: shimmer 2s ease-in-out infinite 1s;
+                }
+                .animate-float {
+                    animation: float 20s ease-in-out infinite;
+                }
+                .animate-float-delayed {
+                    animation: float 20s ease-in-out infinite 10s;
+                }
+                .animate-bounce-slow {
+                    animation: bounce-slow 3s ease-in-out infinite;
+                }
+                .animate-pulse-slow {
+                    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                }
+                .animation-delay-500 {
+                    animation-delay: 0.5s;
+                }
+                @keyframes pulse {
+                    0%, 100% { opacity: 0.05; }
+                    50% { opacity: 0.15; }
+                }
+            `}</style>
+        </section>
+    );
+};
 
 export default AboutMeSection;

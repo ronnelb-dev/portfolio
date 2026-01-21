@@ -3,14 +3,14 @@ import React from 'react';
 class SpinnerIndicator extends React.Component {
   render() {
     return (
-        <div class="loader h-screen flex items-center justify-center">
-          <div class="cube">
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face right"></div>
-            <div class="face left"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
+        <div className="loader h-screen flex items-center justify-center">
+          <div className="cube">
+            <div className="face front"></div>
+            <div className="face back"></div>
+            <div className="face right"></div>
+            <div className="face left"></div>
+            <div className="face top"></div>
+            <div className="face bottom"></div>
           </div>
         </div>
     );

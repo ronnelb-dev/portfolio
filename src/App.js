@@ -9,45 +9,40 @@ import ContactSection from './Components/ContactSection';
 import SpinnerIndicator from './Components/SpinnerIndicator';
 
 const delay = 5;
+
 function App() {
   const [show, setShow] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  useEffect(
-    () => {
-      let timer1 = setTimeout(() => setShow(true), delay * 1000);
+  // Check dark mode on mount
+  useEffect(() => {
+    const darkMode = localStorage.getItem('color-theme') === 'dark';
+    setIsDarkMode(darkMode);
+  }, []);
 
-      // this will clear Timeout
-      // when component unmount like in willComponentUnmount
-      // and show will not change to true
-      return () => {
-        clearTimeout(timer1);
-      };
-    },
-    // useEffect will run only one time with empty []
-    // if you pass a value to array,
-    // like this - [data]
-    // than clearTimeout will run every time
-    // this value changes (useEffect re-run)
-    []
-  );
+  // Handle spinner delay
+  useEffect(() => {
+    let timer1 = setTimeout(() => setShow(true), delay * 1000);
+    return () => {
+      clearTimeout(timer1);
+    };
+  }, []);
 
   return show ? (
-    <div class="bg-gray-100 dark:bg-gray-800">
-      <NavBar/>
-
-      <HomeSection/>
-
-      <AboutMeSection/>
-
-      <PortfolioSection/>
-
-      <ContactSection/>
-
-      <FooterSection/>
+    <div className="bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-900 dark:to-black">
+      <NavBar />
+      <HomeSection />
+      <AboutMeSection />
+      <PortfolioSection />
+      <ContactSection />
+      <FooterSection />
     </div>
   ) : (
-    <div class="bg-gray-800">
-      <SpinnerIndicator/>
+    <div className={`bg-gradient-to-br ${isDarkMode
+      ? 'from-gray-900 via-gray-900 to-black'
+      : 'from-gray-50 via-white to-cyan-50'
+      }`}>
+      <SpinnerIndicator />
     </div>
   );
 }

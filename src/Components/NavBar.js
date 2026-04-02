@@ -1,31 +1,37 @@
 import React from 'react';
-import {
-  FaRegMoon,
-  FaRegSun
-} from 'react-icons/fa';
+import { FaRegMoon, FaRegSun } from 'react-icons/fa';
 import logoSrc from '../Images/logo192.png';
+
+const navLinks = [
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About Me' },
+  { href: '#portfolio', label: 'Portfolio' },
+  { href: '#contact', label: 'Contact' },
+];
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.handleDarkMode = this.handleDarkMode.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
-    this.state = { 
-      darkMode: true, 
+    this.state = {
+      darkMode: true,
       isNavExpanded: false,
-      scrolled: false 
+      scrolled: false,
     };
   }
 
   componentDidMount() {
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (
+      localStorage.getItem('color-theme') === 'dark' ||
+      (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
       document.documentElement.classList.add('dark');
       this.setState({ darkMode: true });
     } else {
       document.documentElement.classList.remove('dark');
       this.setState({ darkMode: false });
     }
-    
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -55,109 +61,94 @@ class NavBar extends React.Component {
   render() {
     const { darkMode, isNavExpanded, scrolled } = this.state;
 
-    const navLinks = [
-      { href: '#home', label: 'Home' },
-      { href: '#about', label: 'About Me' },
-      { href: '#portfolio', label: 'Portfolio' },
-      { href: '#contact', label: 'Contact' }
-    ];
-
     return (
-      <nav className={`sticky top-0 z-20 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg' 
-          : 'bg-white dark:bg-gray-900 shadow-md'
-      }`}>
+      <nav
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg shadow-black/5 dark:shadow-black/20'
+            : 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm'
+        } border-b border-gray-100 dark:border-gray-800`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            
+
             {/* Logo */}
-            <a href="#home" className="flex items-center space-x-3 group">
+            <a href="#home" className="flex items-center gap-2.5 group flex-shrink-0">
               <div className="relative">
-                <div className="absolute inset-0 bg-cyan-500/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <img 
-                  title="my-logo" 
-                  src={logoSrc} 
-                  className="h-10 w-10 relative transform group-hover:scale-110 transition-transform duration-300 rounded-full" 
-                  alt="Ronnel Logo" 
+                <div className="absolute inset-0 bg-cyan-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <img
+                  src={logoSrc}
+                  className="h-9 w-9 relative rounded-full object-cover group-hover:scale-105 transition-transform duration-300 ring-2 ring-cyan-400/30 group-hover:ring-cyan-400/60"
+                  alt="Ronnel Logo"
                 />
               </div>
-              <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
+              <span className="text-lg font-bold bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">
                 Ronnel
               </span>
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="relative px-4 py-2 text-gray-700 dark:text-gray-300 font-medium transition-colors duration-200 group"
+                  className="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200 group rounded-lg hover:bg-cyan-50 dark:hover:bg-cyan-500/10"
                 >
-                  <span className="relative z-10 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                    {link.label}
-                  </span>
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  {link.label}
+                  <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 </a>
               ))}
             </div>
 
-            {/* Right side controls */}
-            <div className="flex items-center space-x-3">
-              
-              {/* Dark Mode Toggle */}
+            {/* Right controls */}
+            <div className="flex items-center gap-2">
+              {/* Dark mode toggle */}
               <button
                 onClick={this.handleDarkMode}
-                className="p-2.5 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 group"
+                className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-cyan-100 dark:hover:bg-cyan-500/20 border border-gray-200 dark:border-gray-700 hover:border-cyan-300 dark:hover:border-cyan-500/50 transition-all duration-200 group"
                 aria-label="Toggle dark mode"
               >
                 {darkMode ? (
-                  <FaRegMoon className="h-5 w-5 text-gray-700 dark:text-gray-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" />
+                  <FaRegSun className="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors" />
                 ) : (
-                  <FaRegSun className="h-5 w-5 text-gray-700 dark:text-gray-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" />
+                  <FaRegMoon className="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors" />
                 )}
               </button>
 
-              {/* Mobile Menu Toggle */}
-              <button 
-                onClick={() => this.setState({ isNavExpanded: !isNavExpanded })} 
-                type="button" 
-                className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+              {/* Mobile menu toggle */}
+              <button
+                onClick={() => this.setState({ isNavExpanded: !isNavExpanded })}
+                className="md:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-cyan-100 dark:hover:bg-cyan-500/20 border border-gray-200 dark:border-gray-700 hover:border-cyan-300 dark:hover:border-cyan-500/50 transition-all duration-200"
                 aria-label="Toggle navigation menu"
+                aria-expanded={isNavExpanded}
               >
-                <svg 
-                  className={`w-6 h-6 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${isNavExpanded ? 'rotate-90' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  {isNavExpanded ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
+                <div className="w-5 h-5 flex flex-col justify-center gap-1.5 relative">
+                  <span className={`block h-0.5 bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${isNavExpanded ? 'rotate-45 translate-y-[7px]' : ''}`} />
+                  <span className={`block h-0.5 bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 ${isNavExpanded ? 'opacity-0 scale-x-0' : ''}`} />
+                  <span className={`block h-0.5 bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${isNavExpanded ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+                </div>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <div 
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isNavExpanded ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+        {/* Mobile menu — slides down */}
+        <div
+          className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            isNavExpanded ? 'max-h-72 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="px-4 pt-2 pb-4 space-y-1 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+          <div className="px-4 py-3 space-y-1 border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md">
             {navLinks.map((link, index) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => this.setState({ isNavExpanded: false })}
-                className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 dark:hover:from-gray-700 dark:hover:to-gray-700 hover:text-cyan-600 dark:hover:text-cyan-400 rounded-lg font-medium transition-all duration-200 transform hover:translate-x-2"
-                style={{ transitionDelay: `${index * 50}ms` }}
+                className="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 rounded-xl font-medium text-sm transition-all duration-200 group"
+                style={{ transitionDelay: `${index * 40}ms` }}
               >
+                <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 {link.label}
               </a>
             ))}

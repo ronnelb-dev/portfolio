@@ -106,32 +106,47 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         }
     }, [isOpen, project?.project_name]);
 
-    const handleNext = useCallback(() => {
+    const handleNext = useCallback((e) => {
+        e?.stopPropagation();
         setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
     }, [project?.images.length]);
 
-    const handlePrev = useCallback(() => {
+    const handlePrev = useCallback((e) => {
+        e?.stopPropagation();
         setCurrentImageIndex((prev) =>
             prev === 0 ? project.images.length - 1 : prev - 1
         );
     }, [project?.images.length]);
 
-    const toggleFullScreen = useCallback(() => {
-        setIsFullScreen(prev => !prev);
+    // Separate open/close handlers to avoid toggle conflicts
+    const openFullScreen = useCallback((e) => {
+        e?.stopPropagation();
+        setIsFullScreen(true);
+    }, []);
+
+    const closeFullScreen = useCallback((e) => {
+        e?.stopPropagation();
+        setIsFullScreen(false);
     }, []);
 
     useEffect(() => {
         if (!isOpen) return;
 
         const handleKeyDown = (e) => {
-            if (e.key === 'Escape') onClose();
+            if (e.key === 'Escape') {
+                if (isFullScreen) {
+                    setIsFullScreen(false);
+                } else {
+                    onClose();
+                }
+            }
             if (e.key === 'ArrowLeft' && project?.images.length > 1) handlePrev();
             if (e.key === 'ArrowRight' && project?.images.length > 1) handleNext();
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, onClose, handlePrev, handleNext, project?.images.length]);
+    }, [isOpen, isFullScreen, onClose, handlePrev, handleNext, project?.images.length]);
 
     if (!isOpen || !project) return null;
 
@@ -139,6 +154,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
 
     return (
         <>
+            {/* Main Modal */}
             <div
                 className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 dark:bg-black/60 backdrop-blur-md animate-fadeIn"
                 onClick={onClose}
@@ -152,47 +168,60 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                 >
                     <button
                         onClick={onClose}
-                        className="absolute top-6 right-6 z-10 p-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-gray-700 dark:text-white transition-all hover:scale-110 hover:rotate-90 duration-300 shadow-lg"
+                        className="absolute top-3 right-3 sm:top-6 sm:right-6 z-10 p-2 sm:p-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full text-gray-700 dark:text-white transition-all hover:scale-110 hover:rotate-90 duration-300 shadow-lg"
                         aria-label="Close modal"
                     >
-                        <FaTimesCircle size={26} />
+                        <FaTimesCircle size={18} className="sm:hidden" />
+                        <FaTimesCircle size={24} className="hidden sm:block" />
                     </button>
 
                     <div className="overflow-y-auto max-h-[95vh] custom-scrollbar">
-                        <div className="relative h-[35rem] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-950 dark:to-gray-900">
+                        <div className="relative h-52 sm:h-72 md:h-[28rem] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-950 dark:to-gray-900">
                             <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-gray-900 via-transparent to-transparent z-[1]"></div>
+
                             <img
                                 src={project.images[currentImageIndex]}
                                 alt={`${project.project_name} - ${currentImageIndex + 1}`}
-                                className="w-full h-full object-contain cursor-zoom-in transition-all duration-500 hover:scale-105"
-                                onClick={toggleFullScreen}
+                                className="w-full h-full object-contain cursor-zoom-in transition-all duration-500 hover:scale-105 relative z-[2]"
+                                onClick={openFullScreen}
                             />
+
+                            {/* Tap-to-expand hint on mobile */}
+                            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-[3] sm:hidden">
+                                <span className="px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded-full">
+                                    Tap image to expand
+                                </span>
+                            </div>
 
                             {hasMultipleImages && (
                                 <>
+                                    {/* Smaller nav buttons on mobile */}
                                     <button
                                         onClick={handlePrev}
-                                        className="absolute left-6 top-1/2 -translate-y-1/2 p-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-full text-white transition-all hover:scale-110 shadow-xl z-[2]"
+                                        className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-1.5 sm:p-3 bg-black/50 sm:bg-gradient-to-r sm:from-cyan-500 sm:to-blue-500 hover:bg-black/70 sm:hover:from-cyan-600 sm:hover:to-blue-600 rounded-full text-white transition-all hover:scale-110 shadow-lg z-[3]"
                                         aria-label="Previous image"
                                     >
-                                        <FaChevronCircleLeft size={24} />
+                                        <FaChevronCircleLeft size={16} className="sm:hidden" />
+                                        <FaChevronCircleLeft size={22} className="hidden sm:block" />
                                     </button>
                                     <button
                                         onClick={handleNext}
-                                        className="absolute right-6 top-1/2 -translate-y-1/2 p-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-full text-white transition-all hover:scale-110 shadow-xl z-[2]"
+                                        className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-1.5 sm:p-3 bg-black/50 sm:bg-gradient-to-r sm:from-cyan-500 sm:to-blue-500 hover:bg-black/70 sm:hover:from-cyan-600 sm:hover:to-blue-600 rounded-full text-white transition-all hover:scale-110 shadow-lg z-[3]"
                                         aria-label="Next image"
                                     >
-                                        <FaChevronCircleRight size={24} />
+                                        <FaChevronCircleRight size={16} className="sm:hidden" />
+                                        <FaChevronCircleRight size={22} className="hidden sm:block" />
                                     </button>
 
-                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-[2]">
+                                    {/* Dot indicators */}
+                                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-[3]">
                                         {project.images.map((_, index) => (
                                             <button
                                                 key={index}
                                                 onClick={() => setCurrentImageIndex(index)}
-                                                className={`h-3 rounded-full transition-all ${index === currentImageIndex
-                                                    ? 'bg-gradient-to-r from-cyan-400 to-blue-400 w-10 shadow-lg'
-                                                    : 'bg-gray-400 dark:bg-gray-500 w-3 hover:bg-gray-500 dark:hover:bg-gray-400'
+                                                className={`h-2 rounded-full transition-all ${index === currentImageIndex
+                                                    ? 'bg-gradient-to-r from-cyan-400 to-blue-400 w-6 shadow-lg'
+                                                    : 'bg-white/60 w-2 hover:bg-white/80'
                                                     }`}
                                                 aria-label={`Go to image ${index + 1}`}
                                             />
@@ -202,7 +231,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                             )}
                         </div>
 
-                        <div className="p-8 md:p-10 space-y-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+                        <div className="p-4 sm:p-8 md:p-10 space-y-6 sm:space-y-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
                             <div className="flex flex-wrap items-start justify-between gap-4">
                                 <h2 id="modal-title" className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
                                     {project.project_name}
@@ -264,56 +293,78 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                 </div>
             </div>
 
+            {/* Fullscreen overlay */}
             {isFullScreen && (
                 <div
-                    className="fixed inset-0 z-[210] bg-black/98 flex items-center justify-center p-4 animate-fadeIn backdrop-blur-md"
-                    onClick={toggleFullScreen}
+                    className="fixed inset-0 z-[210] bg-black flex flex-col animate-fadeIn"
+                    onClick={closeFullScreen}
                 >
-                    <button
-                        onClick={toggleFullScreen}
-                        className="absolute top-6 right-6 p-3 bg-gray-800 hover:bg-gray-700 rounded-full text-white transition-all hover:scale-110 hover:rotate-90 duration-300 z-10 shadow-2xl"
-                        aria-label="Exit fullscreen"
-                    >
-                        <FaTimesCircle size={32} />
-                    </button>
+                    {/* Top bar */}
+                    <div className="flex items-center justify-between px-4 py-3 bg-black/80 backdrop-blur-md flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+                        <span className="text-white/70 text-sm font-medium truncate max-w-[60%]">
+                            {project.project_name}
+                        </span>
+                        <button
+                            onClick={closeFullScreen}
+                            className="p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all hover:rotate-90 duration-300 shadow-lg ml-2"
+                            aria-label="Exit fullscreen"
+                        >
+                            <FaTimesCircle size={20} />
+                        </button>
+                    </div>
 
-                    <img
-                        src={project.images[currentImageIndex]}
-                        alt={`${project.project_name} - Fullscreen`}
-                        className="max-w-full max-h-full object-contain cursor-zoom-out animate-scaleIn"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            toggleFullScreen();
-                        }}
-                    />
+                    {/* Image area — fills remaining space */}
+                    <div className="flex-1 flex items-center justify-center overflow-hidden px-2 py-2">
+                        <img
+                            src={project.images[currentImageIndex]}
+                            alt={`${project.project_name} - Fullscreen`}
+                            className="max-w-full max-h-full object-contain animate-scaleIn"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
 
+                    {/* Bottom bar — counter + nav all in one row */}
                     {hasMultipleImages && (
-                        <>
+                        <div
+                            className="flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-md flex-shrink-0 gap-4"
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handlePrev();
-                                }}
-                                className="absolute left-6 top-1/2 -translate-y-1/2 p-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-full text-white transition-all hover:scale-110 shadow-2xl"
+                                onClick={handlePrev}
+                                className="p-2.5 bg-white/10 hover:bg-cyan-500/70 rounded-full text-white transition-all hover:scale-105 shadow-lg"
                                 aria-label="Previous image"
                             >
-                                <FaChevronCircleLeft size={32} />
-                            </button>
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleNext();
-                                }}
-                                className="absolute right-6 top-1/2 -translate-y-1/2 p-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-full text-white transition-all hover:scale-110 shadow-2xl"
-                                aria-label="Next image"
-                            >
-                                <FaChevronCircleRight size={32} />
+                                <FaChevronCircleLeft size={20} />
                             </button>
 
-                            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-gray-900/90 backdrop-blur-md rounded-full text-white text-base font-medium border border-gray-700 shadow-2xl">
-                                {currentImageIndex + 1} / {project.images.length}
+                            {/* Dot indicators + counter */}
+                            <div className="flex flex-col items-center gap-2 flex-1">
+                                <div className="flex gap-1.5">
+                                    {project.images.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => setCurrentImageIndex(index)}
+                                            className={`h-1.5 rounded-full transition-all ${index === currentImageIndex
+                                                ? 'bg-cyan-400 w-5'
+                                                : 'bg-white/30 w-1.5 hover:bg-white/60'
+                                                }`}
+                                            aria-label={`Go to image ${index + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                                <span className="text-white/60 text-xs font-medium">
+                                    {currentImageIndex + 1} / {project.images.length}
+                                </span>
                             </div>
-                        </>
+
+                            <button
+                                onClick={handleNext}
+                                className="p-2.5 bg-white/10 hover:bg-cyan-500/70 rounded-full text-white transition-all hover:scale-105 shadow-lg"
+                                aria-label="Next image"
+                            >
+                                <FaChevronCircleRight size={20} />
+                            </button>
+                        </div>
                     )}
                 </div>
             )}
@@ -431,7 +482,7 @@ const PortfolioSection = () => {
 
     return (
         <section id="portfolio" className="relative min-h-screen py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-900 dark:to-black">
-            
+
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 left-10 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-500/10 rounded-full blur-3xl animate-float"></div>
@@ -476,7 +527,7 @@ const PortfolioSection = () => {
                 </div>
 
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
-                    {filteredProjects.map((project, index) => (
+                    {filteredProjects.map((project) => (
                         <ProjectCard
                             key={project.project_name}
                             project={project}

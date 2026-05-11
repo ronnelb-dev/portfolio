@@ -4,6 +4,7 @@ import logoSrc from '../Images/logo192.png';
 
 const navLinks = [
   { href: '#home', label: 'Home' },
+  { href: '#services', label: 'Services' },
   { href: '#about', label: 'About Me' },
   { href: '#portfolio', label: 'Portfolio' },
   { href: '#contact', label: 'Contact' },

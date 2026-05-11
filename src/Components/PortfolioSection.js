@@ -5,7 +5,11 @@ import {
     FaChevronCircleRight,
     FaGlobe,
     FaAndroid,
-    FaAppStoreIos
+    FaAppStoreIos,
+    FaBriefcase,
+    FaExclamationTriangle,
+    FaLightbulb,
+    FaChartLine
 } from 'react-icons/fa';
 
 import { PROJECT_DATA } from '../constants/projectData';
@@ -15,6 +19,180 @@ const FILTER_CATEGORIES = [
     { id: "web", label: "Web Development" },
     { id: "mobile", label: "Mobile Apps" },
 ];
+
+const CASE_STUDIES = {
+    "Kaizen Daily": {
+        clientType: "SaaS productivity users / self-improvement professionals",
+        problem: "Users often track habits, journals, reviews, and spending across disconnected tools, making it hard to see progress and patterns.",
+        solution: "Built a full-stack life operating system with habit tracking, journaling, mood insights, weekly/monthly reviews, finance tracking, subscriptions, email reminders, and PWA support.",
+        result: "Created a focused digital workspace that helps users build consistency, reflect on progress, and connect daily actions with long-term personal growth.",
+    },
+    "Powerhouse Church Website": {
+        clientType: "Church / community organization",
+        problem: "Visitors and members needed one reliable place to find service times, sermons, events, ministries, and location details.",
+        solution: "Built a responsive church website with sermon integration, event pages, ministry sections, Google Maps, and clear visitor information.",
+        result: "Helped the church strengthen its online presence, reduce friction for first-time visitors, and keep the congregation informed.",
+    },
+    "JFAAC Katsutadai Church Website": {
+        clientType: "Church / Japanese local community",
+        problem: "The church needed a bilingual-friendly online presence for members and new visitors in Japan.",
+        solution: "Built a responsive website with church information, service schedules, events, ministries, sermon content, and contact details.",
+        result: "Provided a clearer digital home for the congregation and improved discoverability for people looking for church information in the area.",
+    },
+    "Better Swing Trader Website": {
+        clientType: "Trading education / financial analytics platform",
+        problem: "Swing traders needed a professional website to explain the product, capture subscribers, publish educational content, and support marketing.",
+        solution: "Built a multi-page website with features, pricing, guides, blog content, subscriber capture, automated email notifications, and chatbot support.",
+        result: "Helped position the product clearly, improve lead capture, and support ongoing communication with traders through automated updates.",
+    },
+    "Our Wedding Website": {
+        clientType: "Private event / wedding guests",
+        problem: "Guests needed easy access to event details, RSVP, galleries, schedules, and shared memories in one place.",
+        solution: "Built a full wedding website with story pages, venue details, RSVP, countdown, categorized galleries, and guest photo upload.",
+        result: "Created a central guest experience that simplified communication and preserved the event as a digital keepsake.",
+    },
+    "Better Swing Trader Mobile App": {
+        clientType: "Stock swing traders",
+        problem: "Traders needed a practical way to track trade performance, evaluate strategies, and review gains and losses over time.",
+        solution: "Built a mobile analytics app with trade logging, strategy evaluation, performance summaries, charts, local storage, and API sync.",
+        result: "Helped traders monitor performance patterns and make more disciplined decisions from their own trading history.",
+    },
+    "Queue Management System": {
+        clientType: "Hospital / service center",
+        problem: "Long waiting times, manual queue handling, and poor visibility for staff, patients, and management.",
+        solution: "Built a web-based queue system with transaction types, windows, user roles, queue display, SMS notifications, and reports.",
+        result: "Helped digitize manual queue operations and provided management with real-time reports for monitoring service performance.",
+    },
+    "Meal Monitoring System": {
+        clientType: "Hospital / employee operations",
+        problem: "Manual meal tracking made it difficult to validate claims, monitor consumption, and produce accurate reports.",
+        solution: "Built a barcode-enabled meal monitoring system with admin dashboards, filtering, reports, Excel export, and MySQL-backed records.",
+        result: "Improved meal claim accuracy, reduced manual tracking effort, and gave administrators clearer visibility into meal consumption.",
+    },
+    "The Medical City South Luzon SOL APP": {
+        clientType: "Hospital / patient-facing healthcare service",
+        problem: "Patients needed easier mobile access to appointments, lab results, billing information, and hospital transactions.",
+        solution: "Built a Flutter mobile app integrated with hospital systems through REST APIs, secure authentication, notifications, and patient service modules.",
+        result: "Helped bring key hospital services into a mobile experience, improving convenience and access for patients.",
+    },
+    "SSC - For Online SST Customers": {
+        clientType: "Small retail stores / online customers",
+        problem: "Small stores needed a simple way for customers to browse products and place orders without a full e-commerce platform.",
+        solution: "Built a React Native customer ordering app connected to the SST POS workflow with product browsing, cart, order placement, and status updates.",
+        result: "Extended store operations into mobile ordering and gave store owners better visibility into incoming customer demand.",
+    },
+    "SST, Sari Sari iPOS Terminal": {
+        clientType: "Small retail / sari-sari stores",
+        problem: "Small store owners often relied on manual sales logs, limited inventory tracking, and slow checkout workflows.",
+        solution: "Built an Android POS app with barcode scanning, inventory management, sales history, reports, and multi-user support.",
+        result: "Helped small retailers digitize sales and inventory operations using affordable mobile devices.",
+    },
+    "Cash Expense Tracker": {
+        clientType: "Personal finance users / households",
+        problem: "Users needed a simple way to understand where cash was going across daily expenses and categories.",
+        solution: "Built a mobile expense tracker with categories, calendar views, reports, receipt scanning, cloud backup, and Excel export.",
+        result: "Made expense tracking easier and gave users clearer spending visibility for budgeting and review.",
+    },
+    "Task and Reward Tracker": {
+        clientType: "Families / teams",
+        problem: "Parents and team leaders needed a structured way to assign tasks, motivate completion, and track accountability.",
+        solution: "Built a gamified task app with assigned tasks, token rewards, approvals, recurring schedules, notifications, and analytics.",
+        result: "Helped turn recurring responsibilities into measurable progress with clearer motivation and follow-up.",
+    },
+    "Caregiver Assistant": {
+        clientType: "Caregivers / healthcare families",
+        problem: "Caregivers needed a reliable way to record vitals, monitor trends, and share patient health data with others.",
+        solution: "Built a cross-platform health tracker with custom vitals, reminders, charts, patient profiles, secure sharing, and export tools.",
+        result: "Improved care coordination by making health records easier to capture, review, and share.",
+    },
+    "Client Logger": {
+        clientType: "Restaurants, clinics, retail stores, and events",
+        problem: "Businesses needed a fast and secure way to log customer visits, reservations, and contact details.",
+        solution: "Built a business check-in app with QR scanning, manual entry, SMS notifications, reservations, Firebase sync, and visit history.",
+        result: "Helped businesses replace paper logs with faster digital check-ins and more usable customer visit records.",
+    },
+    "Entry Logger": {
+        clientType: "Venue visitors / customers",
+        problem: "Visitors had to repeatedly fill out manual check-in forms when entering establishments or events.",
+        solution: "Built a QR code generator app with profile controls, visit history, printable QR support, and secure encoded contact details.",
+        result: "Reduced repetitive form entry and made check-ins faster while giving users control over shared information.",
+    },
+    "Budgetfy": {
+        clientType: "Personal finance users",
+        problem: "Users needed a lightweight offline budget app for logging expenses, income, and spending patterns.",
+        solution: "Built a native Android app with SQLite storage, transaction categories, budget alerts, reports, and MPAndroidChart visualizations.",
+        result: "Gave users a fast offline budgeting tool with clearer views of income, spending, and financial habits.",
+    },
+    "Web Coast Apps": {
+        clientType: "Mobile app company / product showcase",
+        problem: "The company needed a central website to present its products, app features, downloads, and contact information.",
+        solution: "Built a responsive company website with portfolio sections, app feature highlights, download CTAs, and contact pathways.",
+        result: "Created a clearer product showcase that supports app discovery and business lead generation.",
+    },
+    "Performance Evaluation Manager": {
+        clientType: "Managers / HR teams",
+        problem: "Performance feedback was difficult to compare over time when evaluations were informal or scattered.",
+        solution: "Built a mobile evaluation app with weighted questions, self-evaluations, manager reviews, historical records, and performance summaries.",
+        result: "Helped make performance discussions more measurable, documented, and easier to review between formal evaluation cycles.",
+    },
+    "Tipsee Elite": {
+        clientType: "Tipped workers / service professionals",
+        problem: "Workers needed a fast ad-free way to log tips, wages, tip-outs, and earning patterns after each shift.",
+        solution: "Built a cross-platform tip tracker with quick entry, calendar views, summaries, charts, comparisons, and local backup.",
+        result: "Helped service professionals understand income trends and keep reliable personal earning records.",
+    },
+    "Tipsee": {
+        clientType: "Tipped workers / gig professionals",
+        problem: "Users with variable income needed long-term tracking for tips, wages, commissions, expenses, goals, and reports.",
+        solution: "Built and maintained a native Android income tracker with multi-job support, charts, exports, backups, widgets, and receipts.",
+        result: "Provided a durable income management tool for users who need detailed records for budgeting, planning, and taxes.",
+    },
+    "Medicine Scheduler and Tracker": {
+        clientType: "Medication users / family caregivers",
+        problem: "Users needed reminders and records to stay consistent with medication schedules across multiple profiles.",
+        solution: "Built a medication tracker with alarms, flexible schedules, calendar history, taken/missed statuses, voice alerts, and profile support.",
+        result: "Helped users maintain clearer medication routines and review adherence history over time.",
+    },
+};
+
+const CaseStudyItem = ({ icon: Icon, label, children }) => (
+    <div className="rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/50 p-4 shadow-sm">
+        <div className="flex items-center gap-2 mb-2 text-cyan-600 dark:text-cyan-400 font-bold text-sm uppercase tracking-wide">
+            <Icon className="h-4 w-4" aria-hidden="true" />
+            {label}
+        </div>
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{children}</p>
+    </div>
+);
+
+const ProjectCaseStudy = ({ project }) => {
+    const caseStudy = CASE_STUDIES[project.project_name];
+    if (!caseStudy) return null;
+
+    return (
+        <div className="bg-gradient-to-br from-cyan-50 via-white to-blue-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 p-5 sm:p-6 rounded-2xl border-2 border-cyan-200 dark:border-cyan-500/30 shadow-lg">
+            <h3 className="text-xl font-semibold text-cyan-600 dark:text-cyan-400 mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full"></span>
+                Case Study
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-4">
+                <CaseStudyItem icon={FaBriefcase} label="Client Type">
+                    {caseStudy.clientType}
+                </CaseStudyItem>
+                <CaseStudyItem icon={FaExclamationTriangle} label="Problem">
+                    {caseStudy.problem}
+                </CaseStudyItem>
+                <CaseStudyItem icon={FaLightbulb} label="Solution">
+                    {caseStudy.solution}
+                </CaseStudyItem>
+                <CaseStudyItem icon={FaChartLine} label="Result">
+                    {caseStudy.result}
+                </CaseStudyItem>
+            </div>
+        </div>
+    );
+};
 
 const ProjectLinks = ({ project }) => {
     const renderLinks = () => {
@@ -244,6 +422,8 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                             <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
                                 {project.project_description}
                             </p>
+
+                            <ProjectCaseStudy project={project} />
 
                             <div className="bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-gray-800 dark:to-gray-750 p-6 rounded-2xl border-2 border-cyan-200 dark:border-gray-700 shadow-lg">
                                 <h3 className="text-xl font-semibold text-cyan-600 dark:text-cyan-400 mb-3 flex items-center gap-2">

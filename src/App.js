@@ -8,6 +8,7 @@ import AboutMeSection from './Components/AboutMeSection';
 import ContactSection from './Components/ContactSection';
 import SpinnerIndicator from './Components/SpinnerIndicator';
 import ServicesSection from './Components/ServicesSection';
+import ChatWithRonnel from './Components/ChatWithRonnel';
 
 const delay = 5;
 
@@ -64,6 +65,7 @@ function App() {
         </>
       )}
       <FooterSection />
+      <ChatWithRonnel />
     </div>
   ) : (
     <div className={`bg-gradient-to-br ${isDarkMode

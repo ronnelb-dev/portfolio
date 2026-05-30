@@ -6,41 +6,34 @@ import {
   FaLaravel, FaDatabase, FaNodeJs, FaNpm,
 } from 'react-icons/fa';
 import { SiTailwindcss, SiFlutter, SiTypescript, SiRedux } from 'react-icons/si';
+import portfolioProfile from '../data/portfolioProfile';
 
-const skills = [
-  { name: 'HTML',         icon: FaHtml5,       color: 'from-orange-500 to-orange-600', iconColor: 'text-orange-500', category: 'web',    level: 95 },
-  { name: 'CSS',          icon: FaCss3Alt,      color: 'from-blue-500 to-blue-600',     iconColor: 'text-blue-500',   category: 'web',    level: 90 },
-  { name: 'JavaScript',   icon: FaJsSquare,     color: 'from-yellow-400 to-yellow-500', iconColor: 'text-yellow-500', category: 'web',    level: 92 },
-  { name: 'TypeScript',   icon: SiTypescript,   color: 'from-blue-500 to-blue-700',     iconColor: 'text-blue-500',   category: 'web',    level: 85 },
-  { name: 'React',        icon: FaReact,        color: 'from-cyan-400 to-cyan-600',     iconColor: 'text-cyan-500',   category: 'web',    level: 93 },
-  { name: 'Redux',        icon: SiRedux,        color: 'from-purple-500 to-purple-700', iconColor: 'text-purple-500', category: 'web',    level: 80 },
-  { name: 'Tailwind CSS', icon: SiTailwindcss,  color: 'from-cyan-300 to-cyan-500',     iconColor: 'text-cyan-400',   category: 'web',    level: 95 },
-  { name: 'Bootstrap',    icon: FaBootstrap,    color: 'from-purple-500 to-purple-700', iconColor: 'text-purple-500', category: 'web',    level: 88 },
-  { name: 'Node.js',      icon: FaNodeJs,       color: 'from-green-500 to-green-700',   iconColor: 'text-green-500',  category: 'web',    level: 87 },
-  { name: 'PHP',          icon: FaPhp,          color: 'from-indigo-500 to-indigo-700', iconColor: 'text-indigo-500', category: 'web',    level: 85 },
-  { name: 'Laravel',      icon: FaLaravel,      color: 'from-red-400 to-red-600',       iconColor: 'text-red-500',    category: 'web',    level: 83 },
-  { name: 'MySQL',        icon: FaDatabase,     color: 'from-blue-400 to-blue-600',     iconColor: 'text-blue-400',   category: 'web',    level: 86 },
-  { name: 'React Native', icon: FaReact,        color: 'from-cyan-400 to-cyan-600',     iconColor: 'text-cyan-500',   category: 'mobile', level: 88 },
-  { name: 'Flutter',      icon: SiFlutter,      color: 'from-blue-300 to-blue-500',     iconColor: 'text-blue-400',   category: 'mobile', level: 82 },
-  { name: 'Android',      icon: FaAndroid,      color: 'from-green-400 to-green-600',   iconColor: 'text-green-500',  category: 'mobile', level: 80 },
-  { name: 'Git',          icon: FaGitAlt,       color: 'from-orange-400 to-orange-600', iconColor: 'text-orange-500', category: 'tools',  level: 90 },
-  { name: 'npm',          icon: FaNpm,          color: 'from-red-500 to-red-700',       iconColor: 'text-red-500',    category: 'tools',  level: 88 },
-  { name: 'Jira',         icon: FaJira,         color: 'from-blue-300 to-blue-500',     iconColor: 'text-blue-400',   category: 'tools',  level: 85 },
-];
+const skillIconMap = {
+  android: FaAndroid,
+  bootstrap: FaBootstrap,
+  css: FaCss3Alt,
+  database: FaDatabase,
+  flutter: SiFlutter,
+  git: FaGitAlt,
+  html: FaHtml5,
+  javascript: FaJsSquare,
+  jira: FaJira,
+  laravel: FaLaravel,
+  node: FaNodeJs,
+  npm: FaNpm,
+  php: FaPhp,
+  react: FaReact,
+  redux: SiRedux,
+  tailwind: SiTailwindcss,
+  typescript: SiTypescript,
+};
 
-const categories = [
-  { id: 'all',    label: 'All Skills' },
-  { id: 'web',    label: 'Web Dev' },
-  { id: 'mobile', label: 'Mobile' },
-  { id: 'tools',  label: 'Tools' },
-];
-
-const stats = [
-  { value: `${skills.length}+`, label: 'Technologies', gradient: 'from-cyan-500 to-blue-500',    icon: '🚀' },
-  { value: 'Full-Stack',        label: 'Developer',    gradient: 'from-purple-500 to-pink-500',   icon: '💻' },
-  { value: 'Web & Mobile',      label: 'Platforms',    gradient: 'from-green-500 to-emerald-500', icon: '📱' },
-  { value: 'Modern',            label: 'Tech Stack',   gradient: 'from-orange-500 to-red-500',    icon: '⚡' },
-];
+const skills = portfolioProfile.skills.map((skill) => ({
+  ...skill,
+  icon: skillIconMap[skill.iconKey] || FaReact,
+}));
+const categories = portfolioProfile.skillCategories;
+const stats = portfolioProfile.stats;
 
 /* ---------- SkillBadge ---------- */
 const SkillBadge = ({ skill, index }) => {

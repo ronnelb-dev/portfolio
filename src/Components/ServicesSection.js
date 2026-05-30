@@ -11,146 +11,22 @@ import {
   FaServer,
   FaTools,
 } from 'react-icons/fa';
+import portfolioProfile from '../data/portfolioProfile';
 
-const services = [
-  {
-    id: 'services-web-application-development',
-    title: 'Web Application Development',
-    icon: FaCode,
-    summary: 'Build custom web applications tailored to business operations and workflow automation.',
-    problems: [
-      'Manual business processes spread across spreadsheets, paper forms, and disconnected tools',
-      'Limited visibility into reports, inventory, bookings, and staff workflows',
-      'Customer or admin experiences that are slow, outdated, or difficult to manage',
-    ],
-    audience: 'Healthcare providers, SMEs, service-based businesses, operations teams, and organizations that need custom internal or customer-facing systems.',
-    features: [
-      'Admin dashboards',
-      'Customer portals',
-      'Reporting and analytics systems',
-      'Internal business tools',
-      'Inventory and management systems',
-      'Booking and reservation platforms',
-    ],
-    technologies: ['React', 'Next.js', 'PHP', 'Node.js', 'MySQL', 'REST APIs'],
-    outcomes: 'Streamline operations, reduce manual work, improve reporting, and centralize day-to-day workflows.',
-    caseStudy: 'Queue Management System, Meal Monitoring System, Better Swing Trader Website',
-  },
-  {
-    id: 'services-mobile-app-development',
-    title: 'Mobile App Development',
-    icon: FaMobileAlt,
-    summary: 'Develop cross-platform mobile applications for Android and iOS using modern frameworks.',
-    problems: [
-      'Customers and staff need access to services outside the desktop browser',
-      'Existing workflows are not convenient for mobile users in the field or on the go',
-      'Businesses need notifications, account access, or service actions directly on a phone',
-    ],
-    audience: 'Healthcare teams, service businesses, customer-facing brands, internal staff teams, and product owners who need Android and iOS apps.',
-    features: [
-      'Appointment booking apps',
-      'Service-based business apps',
-      'Healthcare apps',
-      'Customer portals',
-      'Internal staff applications',
-      'Push notification systems',
-    ],
-    technologies: ['React Native', 'Expo', 'Flutter', 'Firebase', 'REST APIs'],
-    outcomes: 'Reach customers on mobile devices and improve accessibility, engagement, and convenience.',
-    caseStudy: 'The Medical City South Luzon SOL App, Better Swing Trader Mobile App, Caregiver Assistant',
-  },
-  {
-    id: 'services-api-backend-development',
-    title: 'API & Backend Development',
-    icon: FaServer,
-    summary: 'Design and develop secure, scalable backend systems and APIs for web and mobile applications.',
-    problems: [
-      'Applications need reliable data storage, authentication, and permission handling',
-      'Mobile and web platforms need a shared backend for consistent business logic',
-      'Systems need integrations for payments, SMS, email, or third-party services',
-    ],
-    audience: 'Startups, growing businesses, app owners, and teams that need a stable backend behind web, mobile, or dashboard products.',
-    features: [
-      'REST API development',
-      'Authentication systems',
-      'Role-based access control',
-      'Database architecture',
-      'Third-party integrations',
-      'Payment and SMS integrations',
-    ],
-    technologies: ['Node.js', 'Express.js', 'PHP', 'MySQL', 'JWT Authentication', 'REST APIs'],
-    outcomes: 'Provide reliable system architecture that supports scalability, security, and seamless application integration.',
-    caseStudy: 'Kaizen Daily, Better Swing Trader Website, Meal Monitoring System',
-  },
-  {
-    id: 'services-queue-appointment-systems',
-    title: 'Queue & Appointment Systems',
-    icon: FaCalendarCheck,
-    summary: 'Create digital queueing and appointment platforms that improve service efficiency and customer flow.',
-    problems: [
-      'Long waiting times and unclear service flow frustrate patients, customers, and staff',
-      'Manual queue handling makes it hard to monitor windows, counters, and service status',
-      'Managers need real-time visibility and historical reports for service performance',
-    ],
-    audience: 'Hospitals, clinics, government offices, service centers, and customer-facing businesses.',
-    features: [
-      'Queue displays and ticketing systems',
-      'Appointment scheduling',
-      'SMS/email notifications',
-      'Real-time queue monitoring',
-      'Multi-window processing',
-      'Reporting dashboards',
-    ],
-    technologies: ['React', 'PHP', 'Node.js', 'MySQL', 'Socket.io', 'SMS APIs'],
-    outcomes: 'Reduce waiting times, improve customer experience, and provide management with operational visibility.',
-    caseStudy: 'Queue Management System, The Medical City South Luzon SOL App',
-  },
-  {
-    id: 'services-system-maintenance-improvements',
-    title: 'System Maintenance & Improvements',
-    icon: FaTools,
-    summary: 'Support and enhance existing systems through ongoing maintenance, optimization, and feature development.',
-    problems: [
-      'Existing systems have bugs, slow workflows, or outdated interfaces',
-      'Legacy code needs modernization without disrupting current operations',
-      'Businesses need new features, better performance, and more reliable data handling',
-    ],
-    audience: 'Businesses with existing web apps, mobile apps, admin systems, databases, or legacy tools that need ongoing support.',
-    features: [
-      'Bug fixing and troubleshooting',
-      'Performance optimization',
-      'Database cleanup and optimization',
-      'UI/UX improvements',
-      'Feature upgrades and enhancements',
-      'Legacy system modernization',
-    ],
-    technologies: ['React', 'React Native', 'PHP', 'Node.js', 'MySQL', 'Firebase'],
-    outcomes: 'Maintain system reliability, improve performance, and extend the lifespan of existing applications.',
-    caseStudy: 'Tipsee, Web Coast Apps, Performance Evaluation Manager',
-  },
-];
+const serviceIconMap = {
+  calendar: FaCalendarCheck,
+  code: FaCode,
+  mobile: FaMobileAlt,
+  server: FaServer,
+  tools: FaTools,
+};
 
-const processSteps = [
-  'Discovery and workflow mapping',
-  'UX structure and technical planning',
-  'Iterative development and testing',
-  'Deployment, handoff, and ongoing support',
-];
-
-const faqs = [
-  {
-    question: 'Can you improve an existing system instead of building from scratch?',
-    answer: 'Yes. I can audit existing apps, fix bugs, improve performance, modernize interfaces, and add new features while preserving current business workflows.',
-  },
-  {
-    question: 'Do you build both the frontend and backend?',
-    answer: 'Yes. I can handle end-to-end development, including UI, APIs, databases, authentication, integrations, deployment, and maintenance.',
-  },
-  {
-    question: 'Can you build systems for healthcare or service-based operations?',
-    answer: 'Yes. My portfolio includes healthcare apps, queue systems, reporting dashboards, service workflows, and operational tools for business teams.',
-  },
-];
+const services = portfolioProfile.services.map((service) => ({
+  ...service,
+  icon: serviceIconMap[service.iconKey] || FaCode,
+}));
+const processSteps = portfolioProfile.processSteps;
+const faqs = portfolioProfile.serviceFaqs;
 
 const ServiceDetail = ({ service }) => {
   const Icon = service.icon;

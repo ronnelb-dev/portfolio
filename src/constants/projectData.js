@@ -1,4 +1,4 @@
-export const PROJECT_DATA = [
+const PROJECT_DATA = [
   {
     project_name: "Kaizen Daily",
     project_description:
@@ -630,3 +630,5 @@ export const PROJECT_DATA = [
     ],
   },
 ];
+
+module.exports = { PROJECT_DATA };

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Slide } from 'react-awesome-reveal';
 import myResume from '../Files/ronnel_resume.pdf';
+import portfolioProfile from '../data/portfolioProfile';
 
-const SOCIAL_LINKS = [
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/ronnel-barashari/',
+const contactEmail = portfolioProfile.contact.email;
+
+const socialVisuals = {
+  LinkedIn: {
     hoverBg: 'hover:bg-blue-600',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -13,9 +14,7 @@ const SOCIAL_LINKS = [
       </svg>
     ),
   },
-  {
-    label: 'GitHub',
-    href: 'https://github.com/ronnelb-dev',
+  GitHub: {
     hoverBg: 'hover:bg-gray-800',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -23,14 +22,19 @@ const SOCIAL_LINKS = [
       </svg>
     ),
   },
-];
+};
+
+const SOCIAL_LINKS = portfolioProfile.contact.socialLinks.map((link) => ({
+  ...link,
+  ...socialVisuals[link.label],
+}));
 
 const CONTACT_CARDS = [
   {
     title: 'Email',
-    value: 'barasharironnel29@gmail.com',
-    href: 'mailto:barasharironnel29@gmail.com',
-    displayValue: 'barasharironnel29@gmail.com',
+    value: contactEmail,
+    href: `mailto:${contactEmail}`,
+    displayValue: contactEmail,
     iconBg: 'from-cyan-500 to-blue-500',
     textColor: 'text-cyan-600 dark:text-cyan-400',
     hoverBorder: 'hover:border-cyan-300 dark:hover:border-cyan-500/50',
@@ -44,7 +48,7 @@ const CONTACT_CARDS = [
     title: 'Resume',
     value: myResume,
     href: myResume,
-    displayValue: 'Download my resume',
+    displayValue: portfolioProfile.contact.resumeLabel,
     iconBg: 'from-emerald-500 to-green-500',
     textColor: 'text-emerald-600 dark:text-emerald-400',
     hoverBorder: 'hover:border-emerald-300 dark:hover:border-emerald-500/50',
@@ -127,7 +131,7 @@ class ContactSection extends React.Component {
                   {/* CTA buttons — full-width on mobile */}
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                     <a
-                      href="mailto:barasharironnel29@gmail.com"
+                      href={`mailto:${contactEmail}`}
                       className="group relative inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 font-bold text-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 bg-[length:200%_100%] animate-gradient-shift" />

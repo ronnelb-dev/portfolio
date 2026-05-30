@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { FiMessageCircle, FiSend, FiX } from 'react-icons/fi';
+import { FiMail, FiMessageCircle, FiRefreshCw, FiSend, FiX } from 'react-icons/fi';
 import profileImage from '../Images/logo192.png';
 
 const MAX_MESSAGE_LENGTH = 1000;
+const REQUEST_TIMEOUT_MS = 20000;
+const CHAT_SESSION_STORAGE_KEY = 'ronnel-chat-session-v1';
+const MAX_PERSISTED_MESSAGES = 12;
 const CHAT_API_URL = process.env.REACT_APP_CHAT_API_URL || '/api/chat';
+const CONTACT_EMAIL = 'barasharironnel29@gmail.com';
 
 const INITIAL_MESSAGE = {
   id: 'welcome',
@@ -12,16 +16,101 @@ const INITIAL_MESSAGE = {
     "Hi there! Thanks for visiting my website. Feel free to ask me about my projects, services, experience, tech stack, pricing, or how to contact me.",
 };
 
+const QUICK_PROMPTS = [
+  'What services do you offer?',
+  'Which project is most relevant to my business?',
+  'What tech stack do you use?',
+  'How can I request a quote?',
+];
+
+const isPersistableMessage = (message) =>
+  message &&
+  (message.role === 'user' || message.role === 'assistant') &&
+  typeof message.content === 'string' &&
+  message.content.trim().length > 0 &&
+  message.content.length <= MAX_MESSAGE_LENGTH;
+
+const normalizePersistedMessages = (messagesToValidate) => {
+  if (!Array.isArray(messagesToValidate)) {
+    return [];
+  }
+
+  return messagesToValidate
+    .filter(isPersistableMessage)
+    .slice(-MAX_PERSISTED_MESSAGES)
+    .map((message, index) => ({
+      id: `restored-${index}-${message.role}`,
+      role: message.role,
+      content: message.content.trim(),
+    }));
+};
+
+const loadSessionMessages = () => {
+  if (typeof window === 'undefined') {
+    return [INITIAL_MESSAGE];
+  }
+
+  try {
+    const storedMessages = window.sessionStorage.getItem(CHAT_SESSION_STORAGE_KEY);
+
+    if (!storedMessages) {
+      return [INITIAL_MESSAGE];
+    }
+
+    const restoredMessages = normalizePersistedMessages(JSON.parse(storedMessages));
+    return [INITIAL_MESSAGE, ...restoredMessages];
+  } catch (storageError) {
+    try {
+      window.sessionStorage.removeItem(CHAT_SESSION_STORAGE_KEY);
+    } catch (removeError) {
+      // Ignore unavailable storage so the chat remains usable.
+    }
+
+    return [INITIAL_MESSAGE];
+  }
+};
+
+const persistSessionMessages = (messagesToPersist) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const safeMessages = normalizePersistedMessages(
+    messagesToPersist.filter((message) => message.id !== INITIAL_MESSAGE.id),
+  ).map(({ role, content }) => ({ role, content }));
+
+  try {
+    window.sessionStorage.setItem(CHAT_SESSION_STORAGE_KEY, JSON.stringify(safeMessages));
+  } catch (storageError) {
+    // Ignore unavailable storage so private browsing or quota limits never break chat.
+  }
+};
+
+const isChatApiLikelyMissing = () => {
+  if (CHAT_API_URL !== '/api/chat' || typeof window === 'undefined') {
+    return false;
+  }
+
+  const { hostname } = window.location;
+  return hostname.endsWith('github.io');
+};
+
 const ChatWithRonnel = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([INITIAL_MESSAGE]);
+  const [messages, setMessages] = useState(loadSessionMessages);
   const [inputValue, setInputValue] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState('');
+  const [lastFailedMessage, setLastFailedMessage] = useState('');
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const launcherRef = useRef(null);
 
   const canSend = inputValue.trim().length > 0 && !isSending;
+
+  useEffect(() => {
+    persistSessionMessages(messages);
+  }, [messages]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -36,10 +125,37 @@ const ChatWithRonnel = () => {
     return () => window.clearTimeout(focusTimer);
   }, [isOpen]);
 
-  const sendMessage = async () => {
-    const trimmedMessage = inputValue.trim();
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+        window.setTimeout(() => launcherRef.current?.focus(), 0);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+
+  const closeChat = () => {
+    setIsOpen(false);
+    window.setTimeout(() => launcherRef.current?.focus(), 0);
+  };
+
+  const sendMessage = async (messageText = inputValue) => {
+    const trimmedMessage = messageText.trim();
 
     if (!trimmedMessage || isSending) return;
+
+    if (isChatApiLikelyMissing()) {
+      setError(
+        'Chat is not connected yet. Please email me directly or configure REACT_APP_CHAT_API_URL.',
+      );
+      setLastFailedMessage(trimmedMessage);
+      return;
+    }
 
     const userMessage = {
       id: `user-${Date.now()}`,
@@ -51,7 +167,11 @@ const ChatWithRonnel = () => {
     setMessages(nextMessages);
     setInputValue('');
     setError('');
+    setLastFailedMessage('');
     setIsSending(true);
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
     try {
       const response = await fetch(CHAT_API_URL, {
@@ -65,6 +185,7 @@ const ChatWithRonnel = () => {
             .slice(-8)
             .map(({ role, content }) => ({ role, content })),
         }),
+        signal: controller.signal,
       });
 
       const data = await response.json().catch(() => ({}));
@@ -84,11 +205,15 @@ const ChatWithRonnel = () => {
         },
       ]);
     } catch (requestError) {
+      setLastFailedMessage(trimmedMessage);
       setError(
-        requestError.message ||
-          'Something went wrong while sending your message. Please try again.',
+        requestError.name === 'AbortError'
+          ? 'The chat took too long to respond. Please try again or email me directly.'
+          : requestError.message ||
+              'Something went wrong while sending your message. Please try again.',
       );
     } finally {
+      window.clearTimeout(timeoutId);
       setIsSending(false);
     }
   };
@@ -105,12 +230,17 @@ const ChatWithRonnel = () => {
     }
   };
 
+  const handleQuickPrompt = (prompt) => {
+    setInputValue(prompt);
+    sendMessage(prompt);
+  };
+
   return (
-    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-50 sm:bottom-6 sm:right-6">
       {isOpen ? (
         <section
           aria-label="Chat with Ronnel"
-          className="fixed bottom-4 left-4 right-4 flex max-h-[calc(100vh-2rem)] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-cyan-950/20 dark:border-gray-700 dark:bg-gray-900 sm:bottom-6 sm:left-auto sm:right-6 sm:h-[560px] sm:w-[380px]"
+          className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] left-4 right-4 flex max-h-[calc(100dvh-2rem-env(safe-area-inset-bottom))] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-cyan-950/20 dark:border-gray-700 dark:bg-gray-900 sm:bottom-6 sm:left-auto sm:right-6 sm:h-[560px] sm:w-[380px]"
         >
           <header className="flex min-h-[72px] items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-900">
             <img
@@ -129,7 +259,7 @@ const ChatWithRonnel = () => {
             </div>
             <button
               type="button"
-              onClick={() => setIsOpen(false)}
+              onClick={closeChat}
               aria-label="Close chat"
               className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
             >
@@ -138,7 +268,12 @@ const ChatWithRonnel = () => {
           </header>
 
           <div className="flex-1 overflow-y-auto bg-gray-50 px-4 py-4 dark:bg-gray-950/60">
-            <div className="space-y-4">
+            <div
+              className="space-y-4"
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions"
+            >
               {messages.map((message) => {
                 const isUser = message.role === 'user';
 
@@ -185,15 +320,48 @@ const ChatWithRonnel = () => {
           </div>
 
           {error && (
-            <p className="border-t border-red-100 bg-red-50 px-4 py-2 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-200">
-              {error}
-            </p>
+            <div className="space-y-2 border-t border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-200">
+              <p>{error}</p>
+              <div className="flex flex-wrap gap-2">
+                {lastFailedMessage && (
+                  <button
+                    type="button"
+                    onClick={() => sendMessage(lastFailedMessage)}
+                    disabled={isSending}
+                    className="inline-flex min-h-9 items-center gap-2 rounded-full border border-red-200 bg-white px-3 py-1.5 font-semibold text-red-700 transition hover:bg-red-100 focus:outline-none focus:ring-4 focus:ring-red-300/40 disabled:opacity-60 dark:border-red-800 dark:bg-red-950 dark:text-red-100 dark:hover:bg-red-900"
+                  >
+                    <FiRefreshCw className="h-4 w-4" aria-hidden="true" />
+                    Retry
+                  </button>
+                )}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="inline-flex min-h-9 items-center gap-2 rounded-full border border-red-200 bg-white px-3 py-1.5 font-semibold text-red-700 transition hover:bg-red-100 focus:outline-none focus:ring-4 focus:ring-red-300/40 dark:border-red-800 dark:bg-red-950 dark:text-red-100 dark:hover:bg-red-900"
+                >
+                  <FiMail className="h-4 w-4" aria-hidden="true" />
+                  Email Ronnel
+                </a>
+              </div>
+            </div>
           )}
 
           <form
             onSubmit={handleSubmit}
             className="border-t border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-900"
           >
+            <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
+              {QUICK_PROMPTS.map((prompt) => (
+                <button
+                  key={prompt}
+                  type="button"
+                  onClick={() => handleQuickPrompt(prompt)}
+                  disabled={isSending}
+                  className="min-h-9 flex-shrink-0 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-700 transition hover:border-cyan-300 hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 disabled:opacity-60 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-200 dark:hover:bg-cyan-500/20"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
             <div className="flex items-end gap-2">
               <label htmlFor="chat-message" className="sr-only">
                 Type a message
@@ -226,6 +394,7 @@ const ChatWithRonnel = () => {
         </section>
       ) : (
         <button
+          ref={launcherRef}
           type="button"
           onClick={() => setIsOpen(true)}
           className="group flex min-h-12 items-center gap-3 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-4 py-3 text-white shadow-2xl shadow-cyan-500/30 transition hover:-translate-y-0.5 hover:shadow-cyan-500/40 focus:outline-none focus:ring-4 focus:ring-cyan-500/30"

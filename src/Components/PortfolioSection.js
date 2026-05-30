@@ -12,7 +12,9 @@ import {
     FaChartLine
 } from 'react-icons/fa';
 
-import { PROJECT_DATA } from '../constants/projectData';
+import projectDataModule from '../constants/projectData';
+
+const { PROJECT_DATA } = projectDataModule;
 
 const FILTER_CATEGORIES = [
     { id: "all", label: "All Projects" },

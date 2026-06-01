@@ -737,7 +737,7 @@ const ProjectCard = ({ project, onOpenModal }) => {
 };
 
 const PortfolioSection = () => {
-    const [activeFilter, setActiveFilter] = useState("web");
+    const [activeFilter, setActiveFilter] = useState("all");
     const [activeProofFilter, setActiveProofFilter] = useState("all");
     const [selectedProject, setSelectedProject] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);

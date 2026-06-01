@@ -41,6 +41,7 @@ test('filters projects by proof label', () => {
 test('combines platform and proof label filters', () => {
   render(<App />);
 
+  fireEvent.click(screen.getByRole('button', { name: /web development/i }));
   fireEvent.click(screen.getByRole('button', { name: /healthcare/i }));
 
   expect(

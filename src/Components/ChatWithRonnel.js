@@ -236,11 +236,11 @@ const ChatWithRonnel = () => {
   };
 
   return (
-    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-50 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-[calc(0.875rem+env(safe-area-inset-bottom))] right-3 z-50 sm:bottom-6 sm:right-6">
       {isOpen ? (
         <section
           aria-label="Chat with Ronnel"
-          className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] left-4 right-4 flex max-h-[calc(100dvh-2rem-env(safe-area-inset-bottom))] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-cyan-950/20 dark:border-gray-700 dark:bg-gray-900 sm:bottom-6 sm:left-auto sm:right-6 sm:h-[560px] sm:w-[380px]"
+          className="fixed bottom-[calc(0.875rem+env(safe-area-inset-bottom))] left-3 right-3 flex max-h-[calc(100dvh-1.75rem-env(safe-area-inset-bottom))] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl shadow-cyan-950/10 dark:border-gray-700 dark:bg-gray-900 sm:bottom-6 sm:left-auto sm:right-6 sm:h-[560px] sm:w-[380px]"
         >
           <header className="flex min-h-[72px] items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-900">
             <img
@@ -254,7 +254,7 @@ const ChatWithRonnel = () => {
               </h2>
               <p className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true" />
-                Online
+                Portfolio assistant
               </p>
             </div>
             <button
@@ -292,7 +292,7 @@ const ChatWithRonnel = () => {
                     <div
                       className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                         isUser
-                          ? 'rounded-br-md bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-lg shadow-cyan-500/20'
+                          ? 'rounded-br-md bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md'
                           : 'rounded-bl-md bg-white text-gray-800 shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700'
                       }`}
                     >
@@ -310,7 +310,7 @@ const ChatWithRonnel = () => {
                     className="h-7 w-7 rounded-full object-cover"
                   />
                   <span className="rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
-                    Ronnel is typing...
+                    Portfolio assistant is typing...
                   </span>
                 </div>
               )}
@@ -347,9 +347,9 @@ const ChatWithRonnel = () => {
 
           <form
             onSubmit={handleSubmit}
-            className="border-t border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-900"
+            className="border-t border-gray-200 bg-white p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] dark:border-gray-700 dark:bg-gray-900 sm:pb-3"
           >
-            <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
+            <div className="mb-3 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
               {QUICK_PROMPTS.map((prompt) => (
                 <button
                   key={prompt}
@@ -381,7 +381,7 @@ const ChatWithRonnel = () => {
                 type="submit"
                 disabled={!canSend}
                 aria-label="Send message"
-                className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-lg shadow-cyan-500/20 transition hover:scale-105 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md transition hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-cyan-500/30 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <FiSend className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -397,13 +397,13 @@ const ChatWithRonnel = () => {
           ref={launcherRef}
           type="button"
           onClick={() => setIsOpen(true)}
-          className="group flex min-h-12 items-center gap-3 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-4 py-3 text-white shadow-2xl shadow-cyan-500/30 transition hover:-translate-y-0.5 hover:shadow-cyan-500/40 focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
+          className="group flex h-12 min-h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 p-0 text-white shadow-lg shadow-cyan-500/20 transition active:scale-[0.98] hover:shadow-cyan-500/25 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 sm:w-auto sm:gap-3 sm:px-4 sm:py-3"
           aria-label="Open Chat with Ronnel"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20">
             <FiMessageCircle className="h-5 w-5" aria-hidden="true" />
           </span>
-          <span className="text-sm font-bold">Chat with Ronnel</span>
+          <span className="hidden text-sm font-bold sm:inline">Chat with Ronnel</span>
         </button>
       )}
     </div>

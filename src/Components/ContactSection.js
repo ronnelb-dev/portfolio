@@ -5,6 +5,12 @@ import portfolioProfile from '../data/portfolioProfile';
 
 const contactEmail = portfolioProfile.contact.email;
 
+const PROJECT_STARTERS = [
+  'What workflow should the system improve?',
+  'Who will use it day to day?',
+  'Do you need web, mobile, backend, or all three?',
+];
+
 const socialVisuals = {
   LinkedIn: {
     hoverBg: 'hover:bg-blue-600',
@@ -65,25 +71,19 @@ class ContactSection extends React.Component {
     return (
       <section
         id="contact"
-        className="relative min-h-screen py-20 sm:py-24 px-4 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-900 dark:to-black"
+        className="relative min-h-screen scroll-mt-16 py-14 sm:py-24 px-4 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-900 dark:to-black"
       >
-        {/* Background orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 right-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl animate-float-delayed" />
-        </div>
-
         <div className="max-w-3xl mx-auto relative">
 
           {/* ── Section header ── */}
-          <div className="flex flex-col items-center mb-12 sm:mb-16 text-center">
+          <div className="flex flex-col items-center mb-9 sm:mb-16 text-center">
             <div className="flex items-center gap-3 mb-5">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400" />
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
+              <div className="w-2 h-2 bg-cyan-400 rounded-full" />
               <div className="h-px w-12 bg-gradient-to-r from-cyan-400 to-transparent" />
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-400 animate-gradient-shift bg-[length:200%_auto] mb-4">
-              Get In Touch
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4">
+              Book a Free Consultation
             </h1>
             <div className="h-px w-20 bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-400 rounded-full" />
           </div>
@@ -92,26 +92,34 @@ class ContactSection extends React.Component {
             <div className="space-y-5">
 
               {/* ── Main card ── */}
-              <div className="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm p-6 sm:p-10 rounded-2xl sm:rounded-3xl border border-gray-200 dark:border-gray-700/50 shadow-2xl overflow-hidden">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
-
+              <div className="relative bg-white/90 dark:bg-gray-800/70 p-5 sm:p-10 rounded-2xl sm:rounded-3xl border border-gray-200 dark:border-gray-700/50 shadow-lg overflow-hidden">
                 <div className="relative space-y-8">
 
                   {/* Intro */}
                   <p className="text-center text-gray-600 dark:text-gray-300 text-sm sm:text-lg leading-relaxed max-w-xl mx-auto">
-                    Feel free to reach out if you have any inquiries or would like to discuss potential projects. I'm always excited to take on new challenges!
+                    Tell me what workflow you want to improve, what users need to do, and where your current process feels slow or manual. I’ll help you think through the best web, mobile, or backend path before you commit to a build.
                   </p>
+
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {PROJECT_STARTERS.map((starter) => (
+                      <div
+                        key={starter}
+                        className="rounded-xl border border-cyan-200 bg-cyan-50/70 px-4 py-3 text-sm font-medium leading-relaxed text-cyan-800 shadow-sm dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-200"
+                      >
+                        {starter}
+                      </div>
+                    ))}
+                  </div>
 
                   {/* Contact cards — stack on mobile, 2-col on sm+ */}
                   <div className="grid sm:grid-cols-2 gap-4">
                     {CONTACT_CARDS.map((card) => (
                       <div
                         key={card.title}
-                        className={`group bg-gray-50 dark:bg-gray-800/40 p-4 sm:p-5 rounded-xl border border-gray-200 dark:border-gray-700/50 ${card.hoverBorder} hover:shadow-lg transition-all duration-300`}
+                        className={`group bg-gray-50 dark:bg-gray-800/40 p-4 sm:p-5 rounded-xl border border-gray-200 dark:border-gray-700/50 ${card.hoverBorder} hover:shadow-md transition-all duration-300`}
                       >
                         <div className="flex items-center gap-3">
-                          <div className={`p-2.5 bg-gradient-to-br ${card.iconBg} rounded-xl shadow-md group-hover:scale-110 transition-transform flex-shrink-0`}>
+                          <div className={`p-2.5 bg-gradient-to-br ${card.iconBg} rounded-xl shadow-sm flex-shrink-0`}>
                             {card.icon}
                           </div>
                           <div className="min-w-0">
@@ -132,21 +140,20 @@ class ContactSection extends React.Component {
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                     <a
                       href={`mailto:${contactEmail}`}
-                      className="group relative inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 font-bold text-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                      className="group relative inline-flex min-h-12 items-center justify-center w-full sm:w-auto px-7 py-3.5 font-bold text-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 bg-[length:200%_100%] animate-gradient-shift" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 opacity-40 blur-lg" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500" />
                       <span className="relative flex items-center gap-2 text-sm sm:text-base">
                         <svg className="w-4 h-4 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
-                        Say Hello
+                        Discuss a Project
                       </span>
                     </a>
 
                     <a
                       href={myResume}
-                      className="group relative inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 font-bold rounded-2xl border-2 border-cyan-500 dark:border-cyan-400 overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                      className="group relative inline-flex min-h-12 items-center justify-center w-full sm:w-auto px-7 py-3.5 font-bold rounded-2xl border-2 border-cyan-500 dark:border-cyan-400 overflow-hidden shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500 group-hover:to-blue-500 transition-all duration-300" />
                       <span className="relative flex items-center gap-2 text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors text-sm sm:text-base">
@@ -169,7 +176,7 @@ class ContactSection extends React.Component {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={label}
-                          className={`w-11 h-11 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-white ${hoverBg} border border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg`}
+                          className={`w-11 h-11 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-white ${hoverBg} border border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300 active:scale-95 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-cyan-500/30`}
                         >
                           {icon}
                         </a>
@@ -184,7 +191,7 @@ class ContactSection extends React.Component {
               <div className="flex justify-center">
                 <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-50 to-emerald-50 dark:from-gray-800/60 dark:to-gray-900/60 border border-cyan-200 dark:border-gray-700 rounded-full">
                   <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">
-                    💼 Let's build something amazing together!
+                    Bring the workflow. I’ll help map the system.
                   </span>
                 </div>
               </div>
@@ -192,18 +199,6 @@ class ContactSection extends React.Component {
             </div>
           </Slide>
         </div>
-
-        <style>{`
-          @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-          @keyframes float {
-            0%, 100% { transform: translate(0,0) scale(1); }
-            33% { transform: translate(30px,-30px) scale(1.1); }
-            66% { transform: translate(-20px,20px) scale(0.9); }
-          }
-          .animate-gradient-shift { animation: gradient-shift 8s ease infinite; }
-          .animate-float { animation: float 20s ease-in-out infinite; }
-          .animate-float-delayed { animation: float 20s ease-in-out infinite 10s; }
-        `}</style>
       </section>
     );
   }

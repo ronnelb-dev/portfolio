@@ -23,10 +23,9 @@ class NavBar extends React.Component {
   }
 
   componentDidMount() {
-    if (
-      localStorage.getItem('color-theme') === 'dark' ||
-      (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
+    const savedTheme = localStorage.getItem('color-theme');
+
+    if (savedTheme !== 'light') {
       document.documentElement.classList.add('dark');
       this.setState({ darkMode: true });
     } else {
@@ -76,10 +75,9 @@ class NavBar extends React.Component {
             {/* Logo */}
             <a href="#home" className="flex items-center gap-2.5 group flex-shrink-0">
               <div className="relative">
-                <div className="absolute inset-0 bg-cyan-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <img
                   src={logoSrc}
-                  className="h-9 w-9 relative rounded-full object-cover group-hover:scale-105 transition-transform duration-300 ring-2 ring-cyan-400/30 group-hover:ring-cyan-400/60"
+                  className="h-9 w-9 relative rounded-full object-cover transition-colors duration-300 ring-2 ring-cyan-400/30 group-hover:ring-cyan-400/50"
                   alt="Ronnel Logo"
                 />
               </div>
@@ -97,7 +95,7 @@ class NavBar extends React.Component {
                   className="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200 group rounded-lg hover:bg-cyan-50 dark:hover:bg-cyan-500/10"
                 >
                   {link.label}
-                  <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute bottom-1 left-4 right-4 h-0.5 rounded-full bg-cyan-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </a>
               ))}
             </div>

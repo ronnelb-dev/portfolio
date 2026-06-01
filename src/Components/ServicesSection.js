@@ -34,23 +34,23 @@ const ServiceDetail = ({ service }) => {
   return (
     <article
       id={service.id}
-      className="scroll-mt-24 rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/80 shadow-xl overflow-hidden"
+      className="scroll-mt-24 rounded-2xl sm:rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/80 shadow-lg overflow-hidden"
     >
       <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="p-6 sm:p-8 bg-gradient-to-br from-cyan-50 via-white to-blue-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 dark:border-gray-700">
+        <div className="p-5 sm:p-8 bg-white dark:bg-gray-900 border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-4 mb-5">
-            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30">
+            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-cyan-500 text-white shadow-md">
               <Icon className="h-6 w-6" aria-hidden="true" />
             </div>
             <div>
               <p className="text-sm font-bold uppercase tracking-wide text-cyan-600 dark:text-cyan-400">Service</p>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white leading-tight">
+              <h3 className="text-xl sm:text-3xl font-extrabold text-gray-900 dark:text-white leading-tight">
                 {service.title}
               </h3>
             </div>
           </div>
 
-          <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-6">
+          <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-6">
             {service.summary}
           </p>
 
@@ -68,7 +68,7 @@ const ServiceDetail = ({ service }) => {
             <div className="pt-2">
               <a
                 href="#contact"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all hover:scale-105 hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-4 focus:ring-cyan-500/40"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 font-semibold text-white shadow-md shadow-cyan-500/20 transition-all active:scale-[0.98] hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-4 focus:ring-cyan-500/40 sm:w-auto"
               >
                 Discuss Your Project
               </a>
@@ -76,7 +76,7 @@ const ServiceDetail = ({ service }) => {
           </div>
         </div>
 
-        <div className="p-6 sm:p-8 space-y-6">
+        <div className="p-5 sm:p-8 space-y-6">
           <div>
             <h4 className="mb-3 flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
               <FaQuestionCircle className="h-4 w-4 text-cyan-500" aria-hidden="true" />
@@ -126,7 +126,7 @@ const ServiceDetail = ({ service }) => {
             </div>
           </div>
 
-          <div className="rounded-2xl border-2 border-cyan-200 dark:border-cyan-500/30 bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-500/10 dark:to-blue-500/10 p-4">
+          <div className="rounded-2xl border-2 border-cyan-200 dark:border-cyan-500/30 bg-cyan-50/70 dark:bg-cyan-500/10 p-4">
             <h4 className="text-sm font-bold uppercase tracking-wide text-cyan-700 dark:text-cyan-300 mb-2">Relevant Case Studies</h4>
             <p className="text-gray-700 dark:text-gray-300">{service.caseStudy}</p>
           </div>
@@ -137,35 +137,31 @@ const ServiceDetail = ({ service }) => {
 };
 
 const ServicesSection = () => (
-  <section id="services" className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-white via-cyan-50 to-gray-50 dark:from-gray-900 dark:via-gray-900 dark:to-black">
-    <div className="absolute inset-0 pointer-events-none">
-      <div className="absolute top-20 right-8 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl" />
-      <div className="absolute bottom-20 left-8 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
-    </div>
-
+  <section id="services" className="relative scroll-mt-16 py-14 sm:py-20 px-4 overflow-hidden bg-gradient-to-br from-white via-cyan-50 to-gray-50 dark:from-gray-900 dark:via-gray-900 dark:to-black">
     <div className="relative max-w-7xl mx-auto">
-      <div className="text-center max-w-3xl mx-auto mb-12">
+      <div className="text-center max-w-3xl mx-auto mb-9 sm:mb-12">
         <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full mb-6 mx-auto"></div>
         <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400 mb-3">Services</p>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-5">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 sm:mb-5">
           Custom Digital Solutions for Business Operations
         </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-          A dedicated services page that explains what I build, who it helps, the technologies I use,
-          and the business outcomes clients can expect.
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+          I help businesses turn slow manual workflows into reliable web, mobile, and backend systems,
+          from internal dashboards to customer-facing apps. Whether you need a new system or improvements
+          to an existing one, I focus on tools that make daily operations easier to manage.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-3 mb-12">
+      <div className="-mx-4 mb-10 flex gap-3 overflow-x-auto px-4 pb-2 no-scrollbar md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-5">
         {services.map((service) => {
           const Icon = service.icon;
           return (
             <a
               key={service.id}
               href={`#${service.id}`}
-              className="group min-h-32 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 p-4 text-left shadow-lg transition-all hover:-translate-y-1 hover:border-cyan-300 dark:hover:border-cyan-500/60 hover:shadow-cyan-500/15 focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
+              className="group min-h-32 w-48 flex-shrink-0 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 p-4 text-left shadow-md transition-all active:scale-[0.98] hover:border-cyan-300 dark:hover:border-cyan-500/60 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-cyan-500/30 md:w-auto"
             >
-              <Icon className="mb-3 h-6 w-6 text-cyan-500 transition-transform group-hover:scale-110" aria-hidden="true" />
+              <Icon className="mb-3 h-6 w-6 text-cyan-500" aria-hidden="true" />
               <span className="block text-sm font-bold leading-snug text-gray-900 dark:text-white">{service.title}</span>
             </a>
           );
@@ -179,7 +175,7 @@ const ServicesSection = () => (
       </div>
 
       <div className="mt-12 grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
-        <div className="rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/80 p-6 sm:p-8 shadow-xl">
+        <div className="rounded-2xl sm:rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/80 p-5 sm:p-8 shadow-lg">
           <h3 className="mb-5 flex items-center gap-3 text-2xl font-extrabold text-gray-900 dark:text-white">
             <FaRocket className="h-6 w-6 text-cyan-500" aria-hidden="true" />
             Development Process
@@ -196,7 +192,7 @@ const ServicesSection = () => (
           </ol>
         </div>
 
-        <div className="rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/80 p-6 sm:p-8 shadow-xl">
+        <div className="rounded-2xl sm:rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/80 p-5 sm:p-8 shadow-lg">
           <h3 className="mb-5 text-2xl font-extrabold text-gray-900 dark:text-white">Service FAQs</h3>
           <div className="space-y-4">
             {faqs.map((faq) => (
@@ -209,16 +205,16 @@ const ServicesSection = () => (
         </div>
       </div>
 
-      <div className="mt-12 rounded-3xl bg-gradient-to-r from-cyan-500 to-blue-500 p-6 sm:p-8 text-center shadow-2xl shadow-cyan-500/25">
+      <div className="mt-12 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-cyan-500 to-blue-500 p-5 sm:p-8 text-center shadow-lg shadow-cyan-500/20">
         <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">Have a system idea or an existing app that needs improvement?</h3>
         <p className="text-cyan-50 max-w-2xl mx-auto mb-6">
           Let’s discuss the workflow, users, core features, and best technical path for your business.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-3">
-          <a href="#contact" className="min-h-12 rounded-full bg-white px-7 py-3 font-bold text-cyan-700 shadow-lg transition-all hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50">
+          <a href="#contact" className="min-h-12 rounded-full bg-white px-7 py-3 font-bold text-cyan-700 shadow-md transition-all active:scale-[0.98] hover:bg-cyan-50 focus:outline-none focus:ring-4 focus:ring-white/50">
             Book a Free Consultation
           </a>
-          <a href="#portfolio" className="min-h-12 rounded-full border-2 border-white/70 px-7 py-3 font-bold text-white transition-all hover:bg-white/10 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/40">
+          <a href="#portfolio" className="min-h-12 rounded-full border-2 border-white/70 px-7 py-3 font-bold text-white transition-all hover:bg-white/10 active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-white/40">
             View Relevant Projects
           </a>
         </div>

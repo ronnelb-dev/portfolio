@@ -7,6 +7,7 @@ const PROJECT_DATA = [
     tag: "web",
     link: "https://kaizen-daily.vercel.app/",
     linkType: "website",
+    proofLabels: ["Live Website", "SaaS", "PWA", "Payments"],
     images: [
       "/portfolio/images/kaizen/kaizen-1.PNG",
       "/portfolio/images/kaizen/kaizen-2.PNG",
@@ -51,6 +52,7 @@ const PROJECT_DATA = [
     tag: "web",
     link: "https://powerhouse-church.vercel.app/",
     linkType: "website",
+    proofLabels: ["Live Website", "Church", "Sermons", "Events"],
     images: [
       "/portfolio/images/pcf/pcf-1.PNG",
       "/portfolio/images/pcf/pcf-2.PNG",
@@ -78,6 +80,7 @@ const PROJECT_DATA = [
     tag: "web",
     link: "https://jfaac-katsutadai.vercel.app/",
     linkType: "website",
+    proofLabels: ["Live Website", "Church", "Japan", "Responsive"],
     images: [
       "/portfolio/images/jfaac/jfaac-1.PNG",
       "/portfolio/images/jfaac/jfaac-2.PNG",
@@ -106,6 +109,7 @@ const PROJECT_DATA = [
     tag: "web",
     link: "https://betterswingtrader.com",
     linkType: "website",
+    proofLabels: ["Live Website", "Trading", "Email Automation", "Chatbot"],
     images: [
       "/portfolio/images/bst-web/bst-web-feature.PNG",
       "/portfolio/images/bst-web/bst-features.PNG",
@@ -137,6 +141,7 @@ const PROJECT_DATA = [
     tag: "web",
     link: "https://ronneljunnawedding.com/",
     linkType: "website",
+    proofLabels: ["Live Website", "RSVP", "Galleries", "Uploads"],
     images: [
       "/portfolio/images/wed-feature.PNG",
       "/portfolio/images/wedding/wed-story.PNG",
@@ -168,6 +173,7 @@ const PROJECT_DATA = [
     tag: "mobile",
     iosLink: "https://apps.apple.com/us/app/best-swing-trader/id6737796315",
     linkType: "ios",
+    proofLabels: ["iOS App", "Trading", "Analytics", "API Sync"],
     images: [
       "/portfolio/images/bst-app/bst-1.webp",
       "/portfolio/images/bst-app/bst-2.webp",
@@ -196,6 +202,7 @@ const PROJECT_DATA = [
     project_image: "/portfolio/images/tmcsl-qms/tmcsl-qms-9.PNG",
     tag: "web",
     link: "#",
+    proofLabels: ["Internal System", "Healthcare", "Real-time Queue", "Reporting"],
     images: [
       "/portfolio/images/tmcsl-qms/tmcsl-qms.PNG",
       "/portfolio/images/tmcsl-qms/tmcsl-qms-1.PNG",
@@ -227,6 +234,7 @@ const PROJECT_DATA = [
     project_image: "/portfolio/images/meal-feature.png",
     tag: "web",
     link: "#",
+    proofLabels: ["Internal System", "Healthcare", "Barcode", "Excel Export"],
     images: ["/portfolio/images/meal-feature.png"],
     technologies: ["PHP", "JavaScript", "Laravel", "Node.js", "Express", "MySQL"],
     role: "Full Stack Developer",
@@ -246,20 +254,22 @@ const PROJECT_DATA = [
     project_image: "/portfolio/images/sol-feature.png",
     tag: "mobile",
     link: "#",
+    proofLabels: ["Internal App", "Healthcare", "Patient Services", "API Integration"],
     images: [
       "/portfolio/images/sol-feature.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-00.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-1.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-2.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-4.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-5.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-6.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-7.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-8.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-9.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-10.png",
-      "/portfolio/images/tmcsl-app/tmcsl-app-11.png",
+      "/portfolio/images/tmcsl-app/tmcsl-app-00.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-1.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-2.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-3.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-4.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-5.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-6.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-7.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-8.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-9.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-10.PNG",
+      "/portfolio/images/tmcsl-app/tmcsl-app-11.PNG",
     ],
     technologies: ["Flutter", "Dart", "MySQL", "REST API", "PHP"],
     role: "Mobile Developer",
@@ -280,6 +290,7 @@ const PROJECT_DATA = [
     tag: "mobile",
     androidLink: "https://play.google.com/store/apps/details?id=com.wca.sst_customer",
     linkType: "android",
+    proofLabels: ["Google Play", "Retail", "Ordering", "POS Integration"],
     images: [
       "/portfolio/images/ssc-app/ssc-1.png",
       "/portfolio/images/ssc-app/ssc-2.png",
@@ -305,6 +316,7 @@ const PROJECT_DATA = [
     tag: "mobile",
     androidLink: "https://play.google.com/store/apps/details?id=com.wca.sst",
     linkType: "android",
+    proofLabels: ["Google Play", "Retail POS", "Barcode", "Reports"],
     images: [
       "/portfolio/images/sst-app/sst-1.png",
       "/portfolio/images/sst-app/sst-2.png",
@@ -331,6 +343,7 @@ const PROJECT_DATA = [
     tag: "mobile",
     androidLink: "https://play.google.com/store/apps/details?id=com.cxptracker",
     linkType: "android",
+    proofLabels: ["Google Play", "Finance", "Expense Tracking", "Cloud Backup"],
     images: [
       "/portfolio/images/xptracker-app/xpt-1.png",
       "/portfolio/images/xptracker-app/xpt-2.png",
@@ -360,6 +373,7 @@ const PROJECT_DATA = [
     androidLink: "https://play.google.com/store/apps/details?id=com.wca.trt",
     iosLink: "https://apps.apple.com/us/app/task-and-reward-tracker/id1566847771",
     linkType: "both",
+    proofLabels: ["iOS + Android", "Gamified Tasks", "Notifications", "Analytics"],
     images: [
       "/portfolio/images/trt-app/trt-1.webp",
       "/portfolio/images/trt-app/trt-2.webp",
@@ -389,6 +403,7 @@ const PROJECT_DATA = [
     androidLink: "https://play.google.com/store/apps/details?id=com.wca.caregiverassistant",
     iosLink: "https://apps.apple.com/us/app/ca-caregiver-assistant/id1608863934",
     linkType: "both",
+    proofLabels: ["iOS + Android", "Healthcare", "Vitals", "Secure Sharing"],
     images: [
       "/portfolio/images/cga-app/cga-1.webp",
       "/portfolio/images/cga-app/cga-2.webp",
@@ -417,6 +432,7 @@ const PROJECT_DATA = [
     project_image: "/portfolio/images/cl-feature.png",
     tag: "mobile",
     link: "#",
+    proofLabels: ["Private App", "Business Check-in", "QR Scanning", "SMS"],
     images: [
       "/portfolio/images/cl-app/cl-1.png",
       "/portfolio/images/cl-app/cl-2.png",
@@ -445,6 +461,7 @@ const PROJECT_DATA = [
     tag: "mobile",
     androidLink: "https://webcoastserver.com/entrylogger/downloads/",
     linkType: "android",
+    proofLabels: ["Google Play", "QR Check-in", "Visit History"],
     images: [
       "/portfolio/images/el-app/el-1.png",
       "/portfolio/images/el-app/el-2.png",
@@ -471,6 +488,7 @@ const PROJECT_DATA = [
     tag: "mobile",
     androidLink: "https://play.google.com/store/apps/details?id=budgetfy.arsoft.com",
     linkType: "android",
+    proofLabels: ["Google Play", "Finance", "Offline SQLite", "Charts"],
     images: [
       "/portfolio/images/budget-app/budget-1.webp",
       "/portfolio/images/budget-app/budget-2.webp",
@@ -498,6 +516,7 @@ const PROJECT_DATA = [
     tag: "web",
     link: "https://webcoastapps.com/",
     linkType: "website",
+    proofLabels: ["Live Website", "Product Showcase", "App Downloads"],
     images: [
       "/portfolio/images/wca-web/web-1.PNG",
       "/portfolio/images/wca-web/web-2.PNG",
@@ -526,6 +545,7 @@ const PROJECT_DATA = [
     androidLink: "https://play.google.com/store/apps/details?id=com.wca.pem",
     iosLink: "https://apps.apple.com/us/app/performance-evaluation-manager/id1516410882",
     linkType: "both",
+    proofLabels: ["iOS + Android", "HR", "Evaluations", "Firebase"],
     images: [
       "/portfolio/images/pem-app/pem-1.webp",
       "/portfolio/images/pem-app/pem-2.webp",
@@ -553,6 +573,7 @@ const PROJECT_DATA = [
     androidLink: "https://play.google.com/store/apps/details?id=com.wca.tipseelite",
     iosLink: "https://apps.apple.com/us/app/tipsee-elite/id1535149595",
     linkType: "both",
+    proofLabels: ["iOS + Android", "Tip Tracking", "Charts", "Local Backup"],
     images: [
       "/portfolio/images/tip-elite-app/tip-elite-1.webp",
       "/portfolio/images/tip-elite-app/tip-elite-2.webp",
@@ -581,6 +602,7 @@ const PROJECT_DATA = [
     tag: "mobile",
     androidLink: "https://play.google.com/store/apps/details?id=com.wca.tipsee",
     linkType: "android",
+    proofLabels: ["Google Play", "Income Tracking", "Reports", "Widgets"],
     images: [
       "/portfolio/images/tip-app/tip-1.webp",
       "/portfolio/images/tip-app/tip-2.webp",
@@ -610,6 +632,7 @@ const PROJECT_DATA = [
     androidLink: "https://play.google.com/store/apps/details?id=com.medicinest",
     iosLink: "https://apps.apple.com/us/app/medicine-tracker-and-scheduler/id1296334224",
     linkType: "both",
+    proofLabels: ["iOS + Android", "Medication", "Reminders", "Offline Records"],
     images: [
       "/portfolio/images/mst-app/mst-1.webp",
       "/portfolio/images/mst-app/mst-2.webp",

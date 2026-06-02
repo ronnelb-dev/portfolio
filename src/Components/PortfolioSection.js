@@ -33,6 +33,24 @@ const PROOF_FILTERS = [
     "Retail",
 ];
 
+const MIN_VIEWER_SCALE = 1;
+const DOUBLE_TAP_VIEWER_SCALE = 2;
+const MAX_VIEWER_SCALE = 3;
+const SWIPE_THRESHOLD_PX = 48;
+const DOUBLE_TAP_DELAY_MS = 280;
+
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+const getTouchDistance = (touches) => {
+    if (touches.length < 2) return 0;
+
+    const [firstTouch, secondTouch] = touches;
+    return Math.hypot(
+        secondTouch.clientX - firstTouch.clientX,
+        secondTouch.clientY - firstTouch.clientY
+    );
+};
+
 const CASE_STUDIES = {
     "Kaizen Daily": {
         clientType: "SaaS productivity users / self-improvement professionals",
@@ -190,16 +208,16 @@ const ProjectCaseStudy = ({ project }) => {
             </h3>
 
             <div className="grid md:grid-cols-2 gap-4">
-                <CaseStudyItem icon={FaBriefcase} label="Client Type">
+                <CaseStudyItem icon={FaBriefcase} label="Context">
                     {caseStudy.clientType}
                 </CaseStudyItem>
-                <CaseStudyItem icon={FaExclamationTriangle} label="Problem">
+                <CaseStudyItem icon={FaExclamationTriangle} label="Challenge">
                     {caseStudy.problem}
                 </CaseStudyItem>
-                <CaseStudyItem icon={FaLightbulb} label="Solution">
+                <CaseStudyItem icon={FaLightbulb} label="What I Built">
                     {caseStudy.solution}
                 </CaseStudyItem>
-                <CaseStudyItem icon={FaChartLine} label="Result">
+                <CaseStudyItem icon={FaChartLine} label="What Changed">
                     {caseStudy.result}
                 </CaseStudyItem>
             </div>
@@ -337,36 +355,192 @@ const ProofLabels = ({ labels = [], variant = 'card' }) => {
 const ProjectModal = ({ project, isOpen, onClose }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isFullScreen, setIsFullScreen] = useState(false);
+    const [viewerScale, setViewerScale] = useState(MIN_VIEWER_SCALE);
+    const [viewerOffset, setViewerOffset] = useState({ x: 0, y: 0 });
+    const [showViewerHint, setShowViewerHint] = useState(false);
+    const touchStateRef = useRef({
+        mode: 'idle',
+        startX: 0,
+        startY: 0,
+        lastX: 0,
+        lastY: 0,
+        startDistance: 0,
+        startScale: MIN_VIEWER_SCALE,
+        startOffset: { x: 0, y: 0 },
+    });
+    const lastTapRef = useRef({ time: 0, x: 0, y: 0 });
+
+    const resetImageTransform = useCallback(() => {
+        setViewerScale(MIN_VIEWER_SCALE);
+        setViewerOffset({ x: 0, y: 0 });
+    }, []);
 
     useEffect(() => {
         if (isOpen) {
             setCurrentImageIndex(0);
             setIsFullScreen(false);
+            resetImageTransform();
         }
-    }, [isOpen, project?.project_name]);
+    }, [isOpen, project?.project_name, resetImageTransform]);
 
     const handleNext = useCallback((e) => {
         e?.stopPropagation();
+        resetImageTransform();
         setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
-    }, [project?.images.length]);
+    }, [project?.images.length, resetImageTransform]);
 
     const handlePrev = useCallback((e) => {
         e?.stopPropagation();
+        resetImageTransform();
         setCurrentImageIndex((prev) =>
             prev === 0 ? project.images.length - 1 : prev - 1
         );
-    }, [project?.images.length]);
+    }, [project?.images.length, resetImageTransform]);
+
+    const handleSelectImage = useCallback((index, e) => {
+        e?.stopPropagation();
+        resetImageTransform();
+        setCurrentImageIndex(index);
+    }, [resetImageTransform]);
 
     // Separate open/close handlers to avoid toggle conflicts
     const openFullScreen = useCallback((e) => {
         e?.stopPropagation();
+        resetImageTransform();
+        setShowViewerHint(true);
         setIsFullScreen(true);
-    }, []);
+    }, [resetImageTransform]);
 
     const closeFullScreen = useCallback((e) => {
         e?.stopPropagation();
+        resetImageTransform();
         setIsFullScreen(false);
+    }, [resetImageTransform]);
+
+    const toggleViewerZoom = useCallback(() => {
+        setViewerScale((scale) => {
+            const shouldZoomIn = scale === MIN_VIEWER_SCALE;
+            if (!shouldZoomIn) {
+                setViewerOffset({ x: 0, y: 0 });
+                return MIN_VIEWER_SCALE;
+            }
+
+            return DOUBLE_TAP_VIEWER_SCALE;
+        });
+        setShowViewerHint(false);
     }, []);
+
+    const handleViewerTouchStart = useCallback((event) => {
+        event.stopPropagation();
+        setShowViewerHint(false);
+
+        if (event.touches.length >= 2) {
+            touchStateRef.current = {
+                mode: 'pinch',
+                startX: 0,
+                startY: 0,
+                lastX: 0,
+                lastY: 0,
+                startDistance: getTouchDistance(event.touches) || 1,
+                startScale: viewerScale,
+                startOffset: viewerOffset,
+            };
+            return;
+        }
+
+        const touch = event.touches[0];
+        touchStateRef.current = {
+            mode: viewerScale > MIN_VIEWER_SCALE ? 'pan' : 'swipe',
+            startX: touch.clientX,
+            startY: touch.clientY,
+            lastX: touch.clientX,
+            lastY: touch.clientY,
+            startDistance: 0,
+            startScale: viewerScale,
+            startOffset: viewerOffset,
+        };
+    }, [viewerOffset, viewerScale]);
+
+    const handleViewerTouchMove = useCallback((event) => {
+        event.stopPropagation();
+
+        const touchState = touchStateRef.current;
+        if (touchState.mode === 'pinch' && event.touches.length >= 2) {
+            event.preventDefault();
+            const nextScale = clamp(
+                touchState.startScale * (getTouchDistance(event.touches) / touchState.startDistance),
+                MIN_VIEWER_SCALE,
+                MAX_VIEWER_SCALE
+            );
+
+            setViewerScale(nextScale);
+            if (nextScale === MIN_VIEWER_SCALE) {
+                setViewerOffset({ x: 0, y: 0 });
+            }
+            return;
+        }
+
+        if (touchState.mode === 'pan' && event.touches.length === 1) {
+            event.preventDefault();
+            const touch = event.touches[0];
+            setViewerOffset({
+                x: touchState.startOffset.x + touch.clientX - touchState.startX,
+                y: touchState.startOffset.y + touch.clientY - touchState.startY,
+            });
+        }
+    }, []);
+
+    const handleViewerTouchEnd = useCallback((event) => {
+        event.stopPropagation();
+
+        const touchState = touchStateRef.current;
+        const changedTouch = event.changedTouches[0];
+
+        if (touchState.mode === 'swipe' && changedTouch) {
+            const deltaX = changedTouch.clientX - touchState.startX;
+            const deltaY = changedTouch.clientY - touchState.startY;
+            const isHorizontalSwipe = Math.abs(deltaX) > SWIPE_THRESHOLD_PX && Math.abs(deltaX) > Math.abs(deltaY);
+
+            if (isHorizontalSwipe && project?.images.length > 1) {
+                if (deltaX < 0) {
+                    handleNext();
+                } else {
+                    handlePrev();
+                }
+                touchStateRef.current.mode = 'idle';
+                return;
+            }
+
+            const now = Date.now();
+            const tapDistance = Math.hypot(changedTouch.clientX - lastTapRef.current.x, changedTouch.clientY - lastTapRef.current.y);
+            const isDoubleTap = now - lastTapRef.current.time < DOUBLE_TAP_DELAY_MS && tapDistance < 28;
+
+            if (isDoubleTap) {
+                toggleViewerZoom();
+                lastTapRef.current = { time: 0, x: 0, y: 0 };
+            } else {
+                lastTapRef.current = {
+                    time: now,
+                    x: changedTouch.clientX,
+                    y: changedTouch.clientY,
+                };
+            }
+        }
+
+        if (viewerScale <= MIN_VIEWER_SCALE) {
+            setViewerOffset({ x: 0, y: 0 });
+        }
+
+        touchStateRef.current.mode = 'idle';
+    }, [handleNext, handlePrev, project?.images.length, toggleViewerZoom, viewerScale]);
+
+    useEffect(() => {
+        if (!isFullScreen) return undefined;
+
+        setShowViewerHint(true);
+        const hintTimer = window.setTimeout(() => setShowViewerHint(false), 2600);
+        return () => window.clearTimeout(hintTimer);
+    }, [isFullScreen, currentImageIndex]);
 
     useEffect(() => {
         if (!isOpen) return;
@@ -374,6 +548,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
                 if (isFullScreen) {
+                    resetImageTransform();
                     setIsFullScreen(false);
                 } else {
                     onClose();
@@ -385,7 +560,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, isFullScreen, onClose, handlePrev, handleNext, project?.images.length]);
+    }, [isOpen, isFullScreen, onClose, handlePrev, handleNext, project?.images.length, resetImageTransform]);
 
     if (!isOpen || !project) return null;
 
@@ -539,76 +714,113 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
             {/* Fullscreen overlay */}
             {isFullScreen && (
                 <div
-                    className="fixed inset-0 z-[210] bg-black flex h-[100dvh] flex-col animate-fadeIn"
-                    onClick={closeFullScreen}
+                    className="fixed inset-0 z-[210] h-[100dvh] overflow-hidden bg-black animate-fadeIn"
+                    aria-label={`${project.project_name} image viewer`}
                 >
-                    {/* Top bar */}
-                    <div className="flex items-center justify-between px-4 py-3 bg-black/80 backdrop-blur-md flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-                        <span className="text-white/70 text-sm font-medium truncate max-w-[60%]">
-                            {project.project_name}
-                        </span>
+                    <div
+                        className="absolute left-3 right-3 top-[calc(env(safe-area-inset-top)+0.75rem)] z-[3] flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/60 px-3 py-2.5 text-white shadow-lg backdrop-blur-md sm:left-6 sm:right-6 sm:top-6"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="min-w-0">
+                            <p className="truncate text-sm font-semibold text-white sm:text-base">{project.project_name}</p>
+                            <p className="text-xs font-medium text-white/60" aria-live="polite">
+                                {currentImageIndex + 1} / {project.images.length}
+                            </p>
+                        </div>
                         <button
                             onClick={closeFullScreen}
-                            className="ml-2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white shadow-lg transition-all duration-300 hover:bg-white/20 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30"
+                            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/15 text-white shadow-md transition-all hover:bg-white/25 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30"
                             aria-label="Exit fullscreen"
                         >
                             <FaTimesCircle size={20} />
                         </button>
                     </div>
 
-                    {/* Image area — fills remaining space */}
-                    <div className="flex-1 flex items-center justify-center overflow-hidden px-2 py-2">
+                    <div
+                        className="relative flex h-full w-full touch-none select-none items-center justify-center overflow-hidden px-2 py-2"
+                        onClick={(e) => e.stopPropagation()}
+                        onDoubleClick={toggleViewerZoom}
+                        onTouchStart={handleViewerTouchStart}
+                        onTouchMove={handleViewerTouchMove}
+                        onTouchEnd={handleViewerTouchEnd}
+                        onTouchCancel={handleViewerTouchEnd}
+                    >
                         <img
                             src={project.images[currentImageIndex]}
                             alt={`${project.project_name} - Fullscreen`}
-                            className="max-w-full max-h-full object-contain animate-scaleIn"
+                            className="max-h-[86dvh] max-w-full object-contain animate-scaleIn will-change-transform"
+                            style={{
+                                transform: `translate3d(${viewerOffset.x}px, ${viewerOffset.y}px, 0) scale(${viewerScale})`,
+                                transition: touchStateRef.current.mode === 'idle' ? 'transform 180ms ease-out' : 'none',
+                            }}
                             onClick={(e) => e.stopPropagation()}
+                            draggable="false"
                         />
+                        <div
+                            className={`pointer-events-none absolute left-1/2 top-[calc(env(safe-area-inset-top)+5.75rem)] z-[2] -translate-x-1/2 rounded-full border border-white/10 bg-black/55 px-3 py-1.5 text-xs font-medium text-white/80 shadow-md backdrop-blur-md transition-opacity duration-300 sm:top-24 ${showViewerHint ? 'opacity-100' : 'opacity-0'}`}
+                        >
+                            Double tap to zoom
+                        </div>
                     </div>
 
-                    {/* Bottom bar — counter + nav all in one row */}
                     {hasMultipleImages && (
                         <div
-                            className="flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-md flex-shrink-0 gap-4"
+                            className="absolute inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] z-[3] flex items-center gap-3 rounded-2xl border border-white/10 bg-black/65 p-2.5 shadow-lg backdrop-blur-md sm:left-1/2 sm:right-auto sm:w-[min(42rem,calc(100vw-3rem))] sm:-translate-x-1/2 sm:bottom-6"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
                                 onClick={handlePrev}
-                                className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white shadow-md transition-all hover:bg-cyan-500/70 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30"
+                                className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/12 text-white shadow-md transition-all hover:bg-cyan-500/70 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30"
                                 aria-label="Previous image"
                             >
                                 <FaChevronCircleLeft size={20} />
                             </button>
 
-                            {/* Dot indicators + counter */}
-                            <div className="flex flex-col items-center gap-2 flex-1">
-                                <div className="flex gap-1.5">
-                                    {project.images.map((_, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => setCurrentImageIndex(index)}
-                                            className={`h-1.5 rounded-full transition-all ${index === currentImageIndex
-                                                ? 'bg-cyan-400 w-5'
-                                                : 'bg-white/30 w-1.5 hover:bg-white/60'
-                                                }`}
-                                            aria-label={`Go to image ${index + 1}`}
+                            <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto px-0.5 py-1 no-scrollbar" aria-label="Image thumbnails">
+                                {project.images.map((image, index) => (
+                                    <button
+                                        key={image}
+                                        type="button"
+                                        onClick={(event) => handleSelectImage(index, event)}
+                                        className={`relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl border transition-all focus:outline-none focus:ring-4 focus:ring-white/30 ${index === currentImageIndex
+                                            ? 'border-cyan-300 ring-2 ring-cyan-300/40'
+                                            : 'border-white/15 opacity-70 hover:opacity-100'
+                                            }`}
+                                        aria-label={`View image ${index + 1} of ${project.images.length}`}
+                                        aria-current={index === currentImageIndex ? 'true' : undefined}
+                                    >
+                                        <img
+                                            src={image}
+                                            alt=""
+                                            className="h-full w-full object-cover"
+                                            draggable="false"
                                         />
-                                    ))}
-                                </div>
-                                <span className="text-white/60 text-xs font-medium">
-                                    {currentImageIndex + 1} / {project.images.length}
-                                </span>
+                                    </button>
+                                ))}
                             </div>
 
                             <button
                                 onClick={handleNext}
-                                className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white shadow-md transition-all hover:bg-cyan-500/70 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30"
+                                className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-cyan-500/80 text-white shadow-md transition-all hover:bg-cyan-500 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30"
                                 aria-label="Next image"
                             >
                                 <FaChevronCircleRight size={20} />
                             </button>
                         </div>
                     )}
+
+                    {!hasMultipleImages && (
+                        <div
+                            className="absolute inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] z-[3] flex justify-center rounded-2xl border border-white/10 bg-black/55 px-4 py-3 text-xs font-medium text-white/70 shadow-lg backdrop-blur-md sm:left-1/2 sm:right-auto sm:w-auto sm:-translate-x-1/2 sm:bottom-6"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            Double tap or pinch to inspect details
+                        </div>
+                    )}
+
+                    <span className="sr-only" aria-live="polite">
+                        Viewing image {currentImageIndex + 1} of {project.images.length}. Zoom level {viewerScale.toFixed(1)}x.
+                    </span>
                 </div>
             )}
         </>
@@ -699,7 +911,7 @@ const ProjectCard = ({ project, onOpenModal }) => {
                         {cardMeta.outcome && (
                             <div className="min-w-0 max-w-full overflow-hidden rounded-2xl border border-cyan-200 dark:border-cyan-500/30 bg-cyan-50/70 dark:bg-cyan-500/10 p-3">
                                 <p className="mb-1 text-xs font-bold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">
-                                    Outcome
+                                    Built Result
                                 </p>
                                 <p className="line-clamp-2 min-w-0 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                                     {cardMeta.outcome}
@@ -794,7 +1006,7 @@ const PortfolioSection = () => {
                         </span>
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg text-center max-w-2xl">
-                        Explore my latest projects and see what I've been working on
+                        A mix of shipped apps, internal systems, experiments, and tools I’ve built across web and mobile.
                     </p>
                 </div>
 

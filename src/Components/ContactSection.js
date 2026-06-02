@@ -6,9 +6,9 @@ import portfolioProfile from '../data/portfolioProfile';
 const contactEmail = portfolioProfile.contact.email;
 
 const PROJECT_STARTERS = [
-  'What workflow should the system improve?',
-  'Who will use it day to day?',
-  'Do you need web, mobile, backend, or all three?',
+  'What are you trying to build or improve?',
+  'What feels slow, messy, or unclear right now?',
+  'Do you need web, mobile, backend, or a full-stack build?',
 ];
 
 const socialVisuals = {
@@ -83,7 +83,7 @@ class ContactSection extends React.Component {
               <div className="h-px w-12 bg-gradient-to-r from-cyan-400 to-transparent" />
             </div>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4">
-              Book a Free Consultation
+              Let’s Talk About the Work
             </h1>
             <div className="h-px w-20 bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-400 rounded-full" />
           </div>
@@ -97,7 +97,7 @@ class ContactSection extends React.Component {
 
                   {/* Intro */}
                   <p className="text-center text-gray-600 dark:text-gray-300 text-sm sm:text-lg leading-relaxed max-w-xl mx-auto">
-                    Tell me what workflow you want to improve, what users need to do, and where your current process feels slow or manual. I’ll help you think through the best web, mobile, or backend path before you commit to a build.
+                    Tell me what you’re building, what feels messy, or which part of the product needs a second brain. I’m happy to talk through the web, mobile, backend, and UI details.
                   </p>
 
                   <div className="grid gap-3 sm:grid-cols-3">
@@ -147,7 +147,7 @@ class ContactSection extends React.Component {
                         <svg className="w-4 h-4 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
-                        Discuss a Project
+                        Start a Conversation
                       </span>
                     </a>
 
@@ -191,7 +191,7 @@ class ContactSection extends React.Component {
               <div className="flex justify-center">
                 <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-50 to-emerald-50 dark:from-gray-800/60 dark:to-gray-900/60 border border-cyan-200 dark:border-gray-700 rounded-full">
                   <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">
-                    Bring the workflow. I’ll help map the system.
+                    Bring the rough idea. I’ll help shape the build.
                   </span>
                 </div>
               </div>

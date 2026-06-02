@@ -2,9 +2,9 @@ import React from 'react';
 import myLogo from '../Images/logo192.png';
 
 const HERO_PROOF_CHIPS = [
-  'Web + Mobile Apps',
-  'Business Dashboards',
-  'APIs & Databases',
+  'Web Apps',
+  'Mobile Apps',
+  'Backend Systems',
 ];
 
 class HomeSection extends React.Component {
@@ -47,18 +47,15 @@ class HomeSection extends React.Component {
 
               {/* Main heading — scales down gracefully on small screens */}
               <h1 className="max-w-4xl mx-auto text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight px-1">
-                I build web and mobile systems that make{' '}
-                  <span className="relative inline-block">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-500 to-emerald-500">
-                    business operations easier.
-                  </span>
-                  <span className="absolute -bottom-1 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400 rounded-full" />
+                Practical web and mobile apps,{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-500 to-emerald-500">
+                  built end to end.
                 </span>
               </h1>
 
               {/* Subtitle */}
               <p className="max-w-2xl mx-auto text-[0.95rem] sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed animate-fade-in-up animation-delay-300 px-1">
-                I help businesses replace manual workflows with reliable dashboards, customer portals, mobile apps, APIs, and reporting tools.
+                Clean interfaces, reliable backends, and tools people can actually use.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-2 px-1 animate-fade-in-up animation-delay-300">
@@ -78,7 +75,7 @@ class HomeSection extends React.Component {
                   href="#portfolio"
                   className="group relative flex min-h-12 w-full sm:w-auto items-center justify-center px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-semibold rounded-full shadow-md shadow-cyan-500/20 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-[0.98] transition-all duration-300 overflow-hidden text-center focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
                 >
-                  <span className="relative z-10">View Business Projects</span>
+                  <span className="relative z-10">See my work</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </a>
 
@@ -86,7 +83,7 @@ class HomeSection extends React.Component {
                   href="#contact"
                   className="flex min-h-12 w-full sm:w-auto items-center justify-center px-8 py-3.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold rounded-full shadow-md border-2 border-gray-200 dark:border-gray-700 hover:border-cyan-400 dark:hover:border-cyan-400 hover:shadow-lg active:scale-[0.98] transition-all duration-300 text-center focus:outline-none focus:ring-4 focus:ring-cyan-500/30"
                 >
-                  Book a Free Consultation
+                  Start a conversation
                 </a>
               </div>
 

@@ -13,14 +13,14 @@ const INITIAL_MESSAGE = {
   id: 'welcome',
   role: 'assistant',
   content:
-    "Hi there! Thanks for visiting my website. Feel free to ask me about my projects, services, experience, tech stack, pricing, or how to contact me.",
+    "Hi there! Thanks for visiting my portfolio. Feel free to ask me about my projects, experience, tech stack, build process, or how to contact me.",
 };
 
 const QUICK_PROMPTS = [
-  'What services do you offer?',
-  'Which project is most relevant to my business?',
+  'What kind of apps do you build?',
+  'Which project shows your best work?',
   'What tech stack do you use?',
-  'How can I request a quote?',
+  'How can I contact you?',
 ];
 
 const isPersistableMessage = (message) =>
@@ -349,18 +349,26 @@ const ChatWithRonnel = () => {
             onSubmit={handleSubmit}
             className="border-t border-gray-200 bg-white p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] dark:border-gray-700 dark:bg-gray-900 sm:pb-3"
           >
-            <div className="mb-3 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-              {QUICK_PROMPTS.map((prompt) => (
-                <button
-                  key={prompt}
-                  type="button"
-                  onClick={() => handleQuickPrompt(prompt)}
-                  disabled={isSending}
-                  className="min-h-9 flex-shrink-0 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-700 transition hover:border-cyan-300 hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 disabled:opacity-60 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-200 dark:hover:bg-cyan-500/20"
-                >
-                  {prompt}
-                </button>
-              ))}
+            <div className="relative mb-3 max-w-full overflow-hidden">
+              <div
+                role="group"
+                aria-label="Suggested questions"
+                className="flex max-w-full flex-nowrap gap-2 overflow-x-auto overscroll-x-contain pb-1 pr-8 no-scrollbar [-webkit-overflow-scrolling:touch]"
+              >
+                {QUICK_PROMPTS.map((prompt) => (
+                  <button
+                    key={prompt}
+                    type="button"
+                    onClick={() => handleQuickPrompt(prompt)}
+                    disabled={isSending}
+                    className="min-h-9 flex-shrink-0 whitespace-nowrap rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-700 transition hover:border-cyan-300 hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 disabled:opacity-60 dark:border-cyan-500/30 dark:bg-cyan-500/10 dark:text-cyan-200 dark:hover:bg-cyan-500/20"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-white to-transparent dark:from-gray-900" aria-hidden="true" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent dark:from-gray-900" aria-hidden="true" />
             </div>
             <div className="flex items-end gap-2">
               <label htmlFor="chat-message" className="sr-only">
@@ -387,7 +395,7 @@ const ChatWithRonnel = () => {
               </button>
             </div>
             <div className="mt-2 flex items-center justify-between gap-3 text-xs text-gray-500 dark:text-gray-400">
-              <span>Ask me about web, mobile, backend, or pricing.</span>
+              <span>Ask me about web, mobile, backend, or projects.</span>
               <span aria-live="polite">{inputValue.length}/1000</span>
             </div>
           </form>

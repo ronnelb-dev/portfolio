@@ -2,30 +2,66 @@ import { useState } from 'react';
 import { Slide } from 'react-awesome-reveal';
 import {
   FaHtml5, FaCss3Alt, FaJsSquare, FaPhp, FaJira,
-  FaAndroid, FaReact, FaBootstrap, FaGitAlt,
+  FaAndroid, FaReact, FaBootstrap, FaGitAlt, FaJava,
   FaLaravel, FaDatabase, FaNodeJs, FaNpm,
 } from 'react-icons/fa';
-import { SiTailwindcss, SiFlutter, SiTypescript, SiRedux } from 'react-icons/si';
+import {
+  SiAxios,
+  SiCloudinary,
+  SiDart,
+  SiExpo,
+  SiExpress,
+  SiFirebase,
+  SiFlutter,
+  SiNextdotjs,
+  SiPostgresql,
+  SiPrisma,
+  SiReactrouter,
+  SiRedux,
+  SiSocketdotio,
+  SiSqlite,
+  SiStripe,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+} from 'react-icons/si';
 import portfolioProfile from '../data/portfolioProfile';
 
 const skillIconMap = {
   android: FaAndroid,
   bootstrap: FaBootstrap,
   css: FaCss3Alt,
+  cloudinary: SiCloudinary,
   database: FaDatabase,
+  dart: SiDart,
+  expo: SiExpo,
+  express: SiExpress,
+  firebase: SiFirebase,
   flutter: SiFlutter,
   git: FaGitAlt,
   html: FaHtml5,
+  java: FaJava,
   javascript: FaJsSquare,
   jira: FaJira,
   laravel: FaLaravel,
+  next: SiNextdotjs,
   node: FaNodeJs,
   npm: FaNpm,
   php: FaPhp,
+  postgresql: SiPostgresql,
+  prisma: SiPrisma,
   react: FaReact,
+  reactrouter: SiReactrouter,
+  rest: SiAxios,
   redux: SiRedux,
+  socketio: SiSocketdotio,
+  sqlite: SiSqlite,
+  stripe: SiStripe,
+  supabase: SiSupabase,
   tailwind: SiTailwindcss,
   typescript: SiTypescript,
+  vercel: SiVercel,
 };
 
 const skills = portfolioProfile.skills.map((skill) => ({
@@ -33,6 +69,7 @@ const skills = portfolioProfile.skills.map((skill) => ({
   icon: skillIconMap[skill.iconKey] || FaReact,
 }));
 const categories = portfolioProfile.skillCategories;
+const INITIAL_ALL_SKILLS_LIMIT = 12;
 
 /* ---------- SkillBadge ---------- */
 const SkillBadge = ({ skill, index }) => {
@@ -41,6 +78,7 @@ const SkillBadge = ({ skill, index }) => {
 
   return (
     <div
+      role="listitem"
       className="relative m-1.5"
       onMouseEnter={() => setShowTip(true)}
       onMouseLeave={() => setShowTip(false)}
@@ -87,7 +125,16 @@ const SkillBadge = ({ skill, index }) => {
 /* ---------- AboutMeSection ---------- */
 const AboutMeSection = () => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [showAllSkills, setShowAllSkills] = useState(false);
   const filteredSkills = activeCategory === 'all' ? skills : skills.filter(s => s.category === activeCategory);
+  const shouldLimitAllSkills = activeCategory === 'all' && !showAllSkills;
+  const visibleSkills = shouldLimitAllSkills ? filteredSkills.slice(0, INITIAL_ALL_SKILLS_LIMIT) : filteredSkills;
+  const showSkillsToggle = activeCategory === 'all' && filteredSkills.length > INITIAL_ALL_SKILLS_LIMIT;
+
+  const handleCategoryChange = (categoryId) => {
+    setActiveCategory(categoryId);
+    setShowAllSkills(false);
+  };
 
   return (
     <section
@@ -107,7 +154,7 @@ const AboutMeSection = () => {
             About Me
           </h1>
           <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
-            Get to know my journey, expertise, and passion for building digital experiences
+            How I turn messy workflows into shipped web and mobile products
           </p>
         </div>
 
@@ -124,25 +171,26 @@ const AboutMeSection = () => {
                 </div>
 
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
-                  I'm a passionate <span className="text-cyan-600 dark:text-cyan-400 font-semibold">full-stack web developer</span> focused on building responsive, user-friendly applications. My core expertise spans{' '}
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">React</span>,{' '}
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">JavaScript/TypeScript</span>, and back-end frameworks like{' '}
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Laravel</span> and{' '}
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Node.js</span>.
+                  I'm a <span className="text-cyan-600 dark:text-cyan-400 font-semibold">full-stack developer</span> who builds practical web and mobile apps for real workflows: dashboards, portals, APIs, internal systems, and mobile tools people use day to day.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
-                  I specialize in pixel-perfect, accessible interfaces using HTML5, CSS3, and utility-first frameworks like{' '}
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Tailwind CSS</span>.
+                  My work usually spans the full product loop: mapping the flow, designing the interface, building the backend, connecting data, debugging edge cases, and polishing after launch.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
-                  Beyond the web, I also build cross-platform mobile apps with{' '}
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">React Native</span> and{' '}
-                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Flutter</span>.
+                  I work across <span className="text-cyan-600 dark:text-cyan-400 font-medium">React</span>,{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Next.js</span>,{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">TypeScript</span>,{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Laravel</span>,{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Node.js</span>,{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">MySQL</span>,{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">PostgreSQL</span>,{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">React Native</span>, and{' '}
+                  <span className="text-cyan-600 dark:text-cyan-400 font-medium">Flutter</span>, with a focus on clear screens, reliable systems, and maintainable code.
                 </p>
 
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700/50">
                   <p className="text-gray-500 dark:text-gray-400 italic text-sm leading-relaxed">
-                    Committed to clean, maintainable code and staying current with best practices. Let's build something amazing together!
+                    I like useful software: clear screens, dependable data, and fewer manual workarounds.
                   </p>
                 </div>
               </div>
@@ -161,7 +209,7 @@ const AboutMeSection = () => {
                     Technical Skills
                   </h5>
                   <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-                    Hover over any skill to see proficiency level
+                    Tools I use across shipped web, mobile, backend, and platform work
                   </p>
                 </div>
 
@@ -170,7 +218,7 @@ const AboutMeSection = () => {
                   {categories.map((cat) => (
                     <button
                       key={cat.id}
-                      onClick={() => setActiveCategory(cat.id)}
+                      onClick={() => handleCategoryChange(cat.id)}
                       className={`relative min-h-11 flex-shrink-0 px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300 overflow-hidden whitespace-nowrap focus:outline-none focus:ring-4 focus:ring-cyan-500/30 ${
                         activeCategory === cat.id
                           ? 'text-white shadow-md'
@@ -187,10 +235,22 @@ const AboutMeSection = () => {
 
                 <div className="relative rounded-2xl border border-gray-200 bg-white/70 p-3 shadow-inner dark:border-gray-700/50 dark:bg-gray-900/30 sm:p-5">
                   <div className="relative flex flex-wrap justify-center" role="list" aria-label="Technical skills">
-                    {filteredSkills.map((skill, i) => (
+                    {visibleSkills.map((skill, i) => (
                       <SkillBadge key={skill.name} skill={skill} index={i} />
                     ))}
                   </div>
+
+                  {showSkillsToggle && (
+                    <div className="mt-5 flex justify-center">
+                      <button
+                        type="button"
+                        onClick={() => setShowAllSkills((isExpanded) => !isExpanded)}
+                        className="min-h-11 rounded-xl border border-cyan-200 bg-white/80 px-5 py-2 text-sm font-semibold text-cyan-700 shadow-sm shadow-cyan-500/10 transition-all duration-300 hover:border-cyan-300 hover:bg-cyan-50 focus:outline-none focus:ring-4 focus:ring-cyan-500/25 dark:border-cyan-500/30 dark:bg-gray-800/70 dark:text-cyan-300 dark:hover:border-cyan-400 dark:hover:bg-cyan-500/10"
+                      >
+                        {showAllSkills ? 'Show less' : 'See more'}
+                      </button>
+                    </div>
+                  )}
 
                   {filteredSkills.length === 0 && (
                     <div className="text-center py-12">

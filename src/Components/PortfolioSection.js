@@ -58,18 +58,18 @@ const CASE_STUDIES = {
         solution: "Built a full-stack life operating system with habit tracking, journaling, mood insights, weekly/monthly reviews, finance tracking, subscriptions, email reminders, and PWA support.",
         result: "Shipped a live SaaS/PWA that centralizes habits, reflection, spending, reminders, and subscription access in one focused self-improvement workspace.",
     },
-    "Powerhouse Church Website": {
-        clientType: "Church / community organization",
-        problem: "Visitors and members needed one reliable place to find service times, sermons, events, ministries, and location details.",
-        solution: "Built a responsive church website with sermon integration, event pages, ministry sections, Google Maps, and clear visitor information.",
-        result: "Launched a live church website that centralizes sermons, events, ministries, location details, and visitor information for members and first-time guests.",
-    },
-    "JFAAC Katsutadai Church Website": {
-        clientType: "Church / Japanese local community",
-        problem: "The church needed a bilingual-friendly online presence for members and new visitors in Japan.",
-        solution: "Built a responsive website with church information, service schedules, events, ministries, sermon content, and contact details.",
-        result: "Published a responsive church website that gives the congregation a clearer digital home and makes service, event, and contact details easier to find.",
-    },
+    // "Powerhouse Church Website": {
+    //     clientType: "Church / community organization",
+    //     problem: "Visitors and members needed one reliable place to find service times, sermons, events, ministries, and location details.",
+    //     solution: "Built a responsive church website with sermon integration, event pages, ministry sections, Google Maps, and clear visitor information.",
+    //     result: "Launched a live church website that centralizes sermons, events, ministries, location details, and visitor information for members and first-time guests.",
+    // },
+    // "JFAAC Katsutadai Church Website": {
+    //     clientType: "Church / Japanese local community",
+    //     problem: "The church needed a bilingual-friendly online presence for members and new visitors in Japan.",
+    //     solution: "Built a responsive website with church information, service schedules, events, ministries, sermon content, and contact details.",
+    //     result: "Published a responsive church website that gives the congregation a clearer digital home and makes service, event, and contact details easier to find.",
+    // },
     "Better Swing Trader Website": {
         clientType: "Trading education / financial analytics platform",
         problem: "Swing traders needed a professional website to explain the product, capture subscribers, publish educational content, and support marketing.",
